@@ -1,2 +1,0 @@
-Russian: Gazprom, Rosneft, Russian Railways, Military Contingent; Moldovan: Ministry of Energy, Infrastructure Ministry, SIS, ANRE; Private: Moldovagaz (51% Russian), CET Nord/Sud, Orange Moldova; International: European Commission, EIB, World Bank, Romanian companies; NGOs: Transnistrian Authorities, International NGOs, Security Firms
-SOURCES: EC (2024), World Bank (2024), ANRE (2024)
