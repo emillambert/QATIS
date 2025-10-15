@@ -1,0 +1,22 @@
+{
+  "category": "areas",
+  "query": "\"Transnistria electricity network\" OR \"Cuciurgan power plant Inter RAO\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "A Hybrid Front in Eastern Europe: Anatomy of an Information ...",
+        "link": "https://regard-est.com/a-hybrid-front-in-eastern-europe-anatomy-of-an-information-war",
+        "source": "regard-est.com",
+        "date": "Sep 21, 2025",
+        "snippet": "The territory's orchestrated dependence operates through several interconnected mechanisms: energy control via the Cuciurgan power plant (Inter RAO) ...",
+        "position": 1,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:18:53.761753Z"
+}

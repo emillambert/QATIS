@@ -1,0 +1,40 @@
+{
+  "category": "areas",
+  "query": "\"Moldova infrastructure overview\" OR \"critical infrastructure Moldova\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Mircea-Florin Sandu's Post",
+        "link": "https://www.linkedin.com/posts/mircea-florin-sandu_investinmoldova-industrialisation-it-activity-7308506097881964544-1wlY",
+        "source": "LinkedIn · Mircea-Florin Sandu",
+        "date": null,
+        "snippet": "... Critical Infrastructure: Moldova is advancing transformative projects to boost connectivity and growth. These include power lines like Vulcănești-Chișinău ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "State Department cyber ambassador Nathaniel Fick",
+        "link": "https://subscriber.politicopro.com/article/2024/08/politico-pro-q-a-state-department-cyber-ambassador-nathaniel-fick-00176771",
+        "source": "POLITICO Pro",
+        "date": "Aug 29, 2024",
+        "snippet": "... critical infrastructure. Moldova is a particular concern, as citizens will go to the polls on the same day in October to cast their votes both for president ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Moldova is Europe - Support for EU Integration",
+        "link": "https://www.facebook.com/euadvisers/posts/modernizarea-sectorului-energetic-al-republicii-moldova-%C8%99i-atragerea-investi%C8%9Biil/1113495897478298/",
+        "source": "Facebook · Moldova is Europe - Support for EU Integration",
+        "date": null,
+        "snippet": "... critical infrastructure. Moldova Energy Forum is organized annually and serves as a platform for dialogue between decision- makers, investors, project ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:18:28.519321Z"
+}

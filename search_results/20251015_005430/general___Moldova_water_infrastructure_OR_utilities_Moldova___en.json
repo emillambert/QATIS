@@ -1,0 +1,31 @@
+{
+  "category": "general",
+  "query": "\"Moldova water infrastructure\" OR \"utilities Moldova\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Edinet Water Treatment Plant construction has started and ...",
+        "link": "https://eu4moldova.eu/en/edinet-water-treatment-plant-construction-has-started-and-will-serve-approximately-25800-residents/",
+        "source": "EU for Moldova",
+        "date": "Apr 9, 2025",
+        "snippet": "... Moldova's water infrastructure. Through this investment in Edinet and additional efforts in Cupcini and Bratuseni, we are proud to support communities in ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "Advertiser Directory - Affiliate Program",
+        "link": "https://optimisemedia.com/advertiser-directory/",
+        "source": "optimisemedia.com",
+        "date": "Sep 12, 2024",
+        "snippet": "... UtilitiesMoldova | BusinessMoldova | CharitiesMoldova | EducationMoldova | EmploymentMoldova | Fashion & BeautyMoldova | FinanceMoldova | GroceryMoldova ...",
+        "position": 2,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:54:59.813166Z"
+}

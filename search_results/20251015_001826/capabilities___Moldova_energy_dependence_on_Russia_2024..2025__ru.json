@@ -1,0 +1,40 @@
+{
+  "category": "capabilities",
+  "query": "\"Moldova energy dependence on Russia\" 2024..2025",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "ru",
+  "results": {
+    "web": [
+      {
+        "title": "Moldova is becoming increasingly dependent on ...",
+        "link": "https://www.youtube.com/watch?v=l4D4kiwt3gY",
+        "source": "YouTube · Canal5 Moldova",
+        "date": null,
+        "snippet": "Moldova is becoming increasingly dependent on expensive imported electricity. Auto-dubbed. 3.1K views · 9 months ago ...more ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "WITHOUT LIGHT AND HEAT! Gas WAR between Russia ...",
+        "link": "https://www.youtube.com/watch?v=2feP8CAsMck",
+        "source": "YouTube · Борис Марцинкевич",
+        "date": null,
+        "snippet": "Transnistria is facing a severe energy crisis: power outages last for 8 hours, residents are freezing in their homes. What caused the collapse of the energy ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "The geopolitical significance of the Arctic and American ...",
+        "link": "https://www.ifimes.org/en/researches/the-geopolitical-significance-of-the-arctic-and-american-policy-towards-the-northern-transportation-network/5592",
+        "source": "Ifimes",
+        "date": "Aug 15, 2025",
+        "snippet": "Russia, as the country with the largest share of the Arctic zone, has in recent years invested heavily in both military and civilian infrastructure, developing ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:20:29.389984Z"
+}

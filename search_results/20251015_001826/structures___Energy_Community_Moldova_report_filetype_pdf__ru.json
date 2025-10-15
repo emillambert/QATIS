@@ -1,0 +1,40 @@
+{
+  "category": "structures",
+  "query": "\"Energy Community Moldova report\" filetype:pdf",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "ru",
+  "results": {
+    "web": [
+      {
+        "title": "Разделенная Молдова: ослабление напряженности в ...",
+        "link": "https://crisisgroup.org/sites/default/files/2024-09/b097-moldova-divided-ru.pdf",
+        "source": "International Crisis Group",
+        "date": "Sep 16, 2024",
+        "snippet": "... Moldova will no longer buy gas from Russia's Gazprom – energy minister», Reuters, 2 октября 2023; «Moldova marks historic step on Trans-Balkan reverse flows ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "Годовой обзор за",
+        "link": "https://www.ebrd.com/content/dam/ebrd_dxp/assets/pdfs/communications-department/annual-review/annual-review-2024/ebrd-annual-review-2024-russian.pdf",
+        "source": "EBRD",
+        "date": "Feb 15, 2025",
+        "snippet": "Premier Energy PLC, ЕБРР поддерживает инвестиции в создание возобновляемых энергогенерирующих мощностей Румынии и Молдовы. Средства этой инвестиционной ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Republica Moldova - Consiliul Municipal Ungheni",
+        "link": "http://ungheni.md/wp-content/uploads/2025/01/D-9-6.pdf",
+        "source": "Ungheni.md",
+        "date": "Jan 22, 2025",
+        "snippet": "Luând în considerare necesitatea implementării unor programe, proiecte la eficientizarea consumului de energie, utilizarea surselor de energie regenerabile, ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:19:52.192512Z"
+}

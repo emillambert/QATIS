@@ -1,0 +1,49 @@
+{
+  "category": "organisations",
+  "query": "\"Gazprom Moldova\" OR \"Inter RAO Transnistria\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "ro",
+  "results": {
+    "web": [
+      {
+        "title": "Lovitură pentru Gazprom. Moldova preia controlul furnizării ...",
+        "link": "https://www.profit.ro/povesti-cu-profit/vecini/revista-presei-din-republica-moldova-lovitura-pentru-gazprom-moldova-preia-controlul-furnizarii-gazelor-pe-propriul-teritoriu-22146303",
+        "source": "Profit.ro",
+        "date": "Aug 28, 2025",
+        "snippet": "Revista presei din Republica Moldova - Lovitură pentru Gazprom. Moldova preia controlul furnizării gazelor pe propriul teritoriu. 28 august 2025, 22:00.",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "„Datoria din Est” – Rusia împrumută, ...",
+        "link": "https://www.facebook.com/curaj.tv/posts/datoria-din-est-rusia-%C3%AEmprumut%C4%83-moldova-risc%C4%83-transnistria-se-consult%C4%83un-text-de/1042818301208378/",
+        "source": "Facebook · Curaj.TV",
+        "date": null,
+        "snippet": "... Gazprom. Moldova are deja acces la gaz european prin România, iar viitoarele investiții vor accelera tranziția către o piață energetică stabilă, conectată ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Gazprom: Moldova a distrus compania Moldovagaz",
+        "link": "https://point.md/ro/novosti/ekonomika/gazprom-moldova-razrushila-biznes-moldovagaz/",
+        "source": "Point.md",
+        "date": "Aug 7, 2025",
+        "snippet": "Compania rusă Gazprom a făcut o declarație în legătură cu retragerea licenței de furnizare a gazului acordată SA Moldovagaz în Republica Moldova. Gazprom: ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": [
+      {
+        "title": "Moldova Köztársaság a forrongó 2024-es évben= Moldova in the Turbulent Year of 2024",
+        "link": "https://real.mtak.hu/189824/",
+        "snippet": "… A növekvő romániai áramszállítmányok is feleslegessé teszik ezt a GAZPROM–Moldova–Dnyeszter-mellék üzletet, ami várhatóan még súlyosabb válságba dönti a szakadár területet. …",
+        "publication_info": "TJ Barabás - MKI ELEMZÉSEK, 2024 - real.mtak.hu",
+        "pdf_link": "https://real.mtak.hu/189824/1/KE-2024_02_Moldova_2024ben_BTJ.pdf",
+        "engine": "scholar"
+      }
+    ]
+  },
+  "generated_at": "2025-10-14T22:21:43.288762Z"
+}

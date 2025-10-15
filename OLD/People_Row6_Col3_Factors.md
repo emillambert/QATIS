@@ -1,0 +1,2 @@
+Energy Minister; ANRE board; Moldelectrica CEO; Moldovagaz CEO; CET Nord/Sud leadership; Orange Moldova CEO; SIS Director; Romanian TSO counterparts; MGRES/Cuciurgan management (Transnistria)
+SOURCES: Gov.md (2024), ANRE (2024), Moldelectrica (2024)

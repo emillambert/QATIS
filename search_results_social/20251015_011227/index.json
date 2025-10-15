@@ -1,0 +1,46 @@
+{
+  "entries": [
+    {
+      "category": "x_broad",
+      "query": "Moldova infrastructure since:2024-01-01 until:2025-12-31 lang:en",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_broad__Moldova_infrastructure_since_2024-01-01_until_2025-12-31_lang_en__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_broad__Moldova_infrastructure_since_2024-01-01_until_2025-12-31_lang_en__en.json"
+    },
+    {
+      "category": "x_broad",
+      "query": "Moldova energy crisis since:2024-01-01 until:2025-12-31 lang:en",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_broad__Moldova_energy_crisis_since_2024-01-01_until_2025-12-31_lang_en__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_broad__Moldova_energy_crisis_since_2024-01-01_until_2025-12-31_lang_en__en.json"
+    },
+    {
+      "category": "x_specific",
+      "query": "Moldelectrica since:2024-01-01 until:2025-12-31",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_specific__Moldelectrica_since_2024-01-01_until_2025-12-31__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/x_specific__Moldelectrica_since_2024-01-01_until_2025-12-31__en.json"
+    },
+    {
+      "category": "youtube_broad",
+      "query": "Moldova infrastructure 2024",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_broad__Moldova_infrastructure_2024__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_broad__Moldova_infrastructure_2024__en.json"
+    },
+    {
+      "category": "youtube_broad",
+      "query": "Moldova energy crisis 2024",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_broad__Moldova_energy_crisis_2024__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_broad__Moldova_energy_crisis_2024__en.json"
+    },
+    {
+      "category": "youtube_specific",
+      "query": "Moldelectrica 2024",
+      "language": "en",
+      "markdown": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_specific__Moldelectrica_2024__en.md",
+      "json": "/Users/emilwl/Documents/QATIS/search_results_social/20251015_011227/youtube_specific__Moldelectrica_2024__en.json"
+    }
+  ]
+}

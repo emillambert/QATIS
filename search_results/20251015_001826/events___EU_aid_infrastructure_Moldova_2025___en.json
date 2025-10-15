@@ -1,0 +1,40 @@
+{
+  "category": "events",
+  "query": "\"EU aid infrastructure Moldova 2025\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Parliament approves new support plan for Moldova | News",
+        "link": "https://www.europarl.europa.eu/news/en/press-room/20250310IPR27218/parliament-approves-new-support-plan-for-moldova",
+        "source": "European Parliament",
+        "date": "Mar 11, 2025",
+        "snippet": "On Tuesday, the European Parliament gave its green light to a new support facility for Moldova, focusing on better financing and democratic oversight.",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "Joint Declaration following the first EU-Republic of Moldova ...",
+        "link": "https://enlargement.ec.europa.eu/news/joint-declaration-following-first-eu-republic-moldova-summit-2025-07-04_en",
+        "source": "Enlargement and Eastern Neighbourhood",
+        "date": "Jul 4, 2025",
+        "snippet": "EU support to Moldova in the modernisation of its defence capabilities will continue, including €60 million of the European Peace Facility (EPF) budget in 2025 ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Moldova: an unprecedented financial assistance package ...",
+        "link": "https://www.osw.waw.pl/en/publikacje/analyses/2025-02-24/moldova-unprecedented-financial-assistance-package-eu",
+        "source": "OSW Ośrodek Studiów Wschodnich",
+        "date": "Feb 24, 2025",
+        "snippet": "Under this plan, Moldova is set to receive €1.885 billion in aid between 2025 and 2027, including €385 million in non-repayable grants and €1.5 billion in ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:23:40.656677Z"
+}

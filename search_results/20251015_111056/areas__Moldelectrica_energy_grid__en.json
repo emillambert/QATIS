@@ -1,0 +1,21 @@
+{
+  "category": "areas",
+  "query": "Moldelectrica energy grid",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [],
+    "scholar": [
+      {
+        "title": "A global catalogue of CO<sub>2</sub> emissions and co-emitted species from power plants, including high-resolution vertical and temporal profiles",
+        "link": "https://openalex.org/W4390884420",
+        "snippet": "",
+        "publication_info": "Earth system science data (2024)",
+        "pdf_link": "https://essd.copernicus.org/articles/16/337/2024/essd-16-337-2024.pdf",
+        "engine": "openalex"
+      }
+    ]
+  },
+  "generated_at": "2025-10-15T09:11:55.274609+00:00"
+}

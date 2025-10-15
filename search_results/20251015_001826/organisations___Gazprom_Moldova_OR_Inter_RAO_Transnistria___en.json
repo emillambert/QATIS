@@ -1,0 +1,49 @@
+{
+  "category": "organisations",
+  "query": "\"Gazprom Moldova\" OR \"Inter RAO Transnistria\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Moldova's Energy Crisis Could Pave the Way ...",
+        "link": "https://carnegieendowment.org/russia-eurasia/politika/2024/12/russia-moldova-energy-crisis?lang=en",
+        "source": "Carnegie Endowment for International Peace",
+        "date": "Dec 20, 2024",
+        "snippet": "While this allowed Chișinău to claim it was no longer dependent on Gazprom, Moldova continued buying cheap electricity from Transnistria that had been produced ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "Gazprom calls revocation of Moldovagaz license final blow ...",
+        "link": "https://interfax.com/newsroom/top-stories/113138/",
+        "source": "Interfax",
+        "date": "Aug 8, 2025",
+        "snippet": "Transdniestria's administration has transferred its share management rights to Gazprom. Moldova has been buying gas on the European market since December 2022, ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Moldova orders Gazprom subsidiary to surrender control of ...",
+        "link": "https://www.upstreamonline.com/energy-security/moldova-orders-gazprom-subsidiary-to-surrender-control-of-gas-grid/2-1-1853403",
+        "source": "Upstream Online",
+        "date": "Aug 4, 2025",
+        "snippet": "GazpromMoldovaMoldovagazEnergocomRussia. Copy link. Be notified. Energy Explored. In a world awash with information, Upstream helps readers filter out the noise ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": [
+      {
+        "title": "Moldova Köztársaság a forrongó 2024-es évben= Moldova in the Turbulent Year of 2024",
+        "link": "https://real.mtak.hu/189824/",
+        "snippet": "… A növekvő romániai áramszállítmányok is feleslegessé teszik ezt a GAZPROM–Moldova–Dnyeszter-mellék üzletet, ami várhatóan még súlyosabb válságba dönti a szakadár területet. …",
+        "publication_info": "TJ Barabás - MKI ELEMZÉSEK, 2024 - real.mtak.hu",
+        "pdf_link": "https://real.mtak.hu/189824/1/KE-2024_02_Moldova_2024ben_BTJ.pdf",
+        "engine": "scholar"
+      }
+    ]
+  },
+  "generated_at": "2025-10-14T22:21:25.920013Z"
+}

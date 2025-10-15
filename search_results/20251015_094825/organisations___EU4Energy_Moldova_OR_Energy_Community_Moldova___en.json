@@ -1,0 +1,12 @@
+{
+  "category": "organisations",
+  "query": "\"EU4Energy Moldova\" OR \"Energy Community Moldova\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [],
+    "scholar": []
+  },
+  "generated_at": "2025-10-15T07:49:07.434747+00:00"
+}

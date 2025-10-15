@@ -1,0 +1,12 @@
+{
+  "category": "capabilities",
+  "query": "\"ENISA Moldova cybersecurity report\" OR \"cyber maturity Moldova\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "ru",
+  "results": {
+    "web": [],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:20:47.416522Z"
+}

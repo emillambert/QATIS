@@ -1,0 +1,29 @@
+x:
+  broad:
+    - 'Moldova infrastructure since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Moldova energy crisis since:2024-01-01 until:2025-12-31 lang:en'
+  specific:
+    - 'Moldelectrica since:2024-01-01 until:2025-12-31'
+  users:
+    - 'Moldelectrica'
+    - 'MoldovaGov'
+
+youtube:
+  broad:
+    - 'Moldova infrastructure 2024'
+    - 'Moldova energy crisis 2024'
+  specific:
+    - 'Moldelectrica 2024'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'infrastructure'
+    - 'energy'
+  keywords_specific:
+    - 'Moldelectrica'
+    - 'Moldelectrica outage'
+
+

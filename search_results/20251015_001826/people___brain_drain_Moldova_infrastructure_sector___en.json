@@ -1,0 +1,40 @@
+{
+  "category": "people",
+  "query": "\"brain drain Moldova infrastructure sector\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Strengthening Moldova's Cyber Landscape",
+        "link": "https://www.csis.org/analysis/strengthening-moldovas-cyber-landscape",
+        "source": "CSIS | Center for Strategic and International Studies",
+        "date": "Oct 8, 2024",
+        "snippet": "The resulting “brain drain” is exacerbated by the weight of an aging Moldovan population. But tech and cyber job opportunities across public and private sectors ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "Growth Plan for Moldova - Regulation.pdf",
+        "link": "https://enlargement.ec.europa.eu/document/download/029c4a4c-1586-46e8-b94e-38a4a1f6ae07_en?filename=Growth%20Plan%20for%20Moldova%20-%20Regulation.pdf",
+        "source": "Enlargement and Eastern Neighbourhood",
+        "date": "Oct 9, 2024",
+        "snippet": "In addition, the Facility is expected to mobilise up to EUR 2 500 million of new investments from the international financial institutions and the private ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Action Plan for the Republic of Moldova 2021-2024",
+        "link": "https://rm.coe.int/dio-eva-dec-final-moldova-ap-evaluation-report-310524/1680b1c064",
+        "source": "coe.int",
+        "date": "May 31, 2024",
+        "snippet": "Factors at play include a general brain drain from the country, too low a level of remuneration, ... There are big infrastructure needs in the sector. This ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:22:30.303217Z"
+}

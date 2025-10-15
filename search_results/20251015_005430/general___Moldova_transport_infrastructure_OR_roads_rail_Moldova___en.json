@@ -1,0 +1,40 @@
+{
+  "category": "general",
+  "query": "\"Moldova transport infrastructure\" OR \"roads rail Moldova\"",
+  "year_min": 2024,
+  "year_max": 2025,
+  "language": "en",
+  "results": {
+    "web": [
+      {
+        "title": "Moldova and Transport Community: Productive meetings ...",
+        "link": "https://www.transport-community.org/news/moldova-and-transport-community-productive-meetings-highlight-progress-in-transport-sector-and-eu-integration/",
+        "source": "Transport Community",
+        "date": "Aug 21, 2024",
+        "snippet": "This innovative action, aimed at improving the efficiency and safety of Moldova's transport infrastructure, is open for tender and accessible via the ...",
+        "position": 1,
+        "engine": "google"
+      },
+      {
+        "title": "eu project page",
+        "link": "https://eu4moldova.eu/en/projects/eu-project-page/?id=1945",
+        "source": "EU for Moldova",
+        "date": "Feb 21, 2025",
+        "snippet": "It involves a comprehensive analysis of Moldova's transport infrastructure and services, providing strategic guidance and actionable recommendations to the ...",
+        "position": 2,
+        "engine": "google"
+      },
+      {
+        "title": "Reform Agenda under the Republic of Moldova`s Growth ...",
+        "link": "https://mded.gov.md/wp-content/uploads/2025/05/Agenda-_260-en.pdf",
+        "source": "Ministerul Dezvoltării Economice și Digitalizării",
+        "date": "May 3, 2025",
+        "snippet": "Moldova's transport infrastructure currently fails to meet the standards and functional capacities required by the EU, presenting a challenge in terms of ...",
+        "position": 3,
+        "engine": "google"
+      }
+    ],
+    "scholar": []
+  },
+  "generated_at": "2025-10-14T22:54:50.600528Z"
+}

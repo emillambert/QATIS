@@ -1,0 +1,165 @@
+{
+  "entries": [
+    {
+      "category": "areas",
+      "query": "\"Moldova infrastructure overview\" OR \"critical infrastructure Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/areas___Moldova_infrastructure_overview_OR_critical_infrastructure_Moldova___en.md",
+      "json": "search_results/20251015_094825/areas___Moldova_infrastructure_overview_OR_critical_infrastructure_Moldova___en.json"
+    },
+    {
+      "category": "areas",
+      "query": "\"Moldova energy grid\" OR \"power transmission Moldova site:europa.eu\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/areas___Moldova_energy_grid_OR_power_transmission_Moldova_site_europa.eu___en.md",
+      "json": "search_results/20251015_094825/areas___Moldova_energy_grid_OR_power_transmission_Moldova_site_europa.eu___en.json"
+    },
+    {
+      "category": "areas",
+      "query": "\"Transnistria electricity network\" OR \"Cuciurgan power plant Inter RAO\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/areas___Transnistria_electricity_network_OR_Cuciurgan_power_plant_Inter_RAO___en.md",
+      "json": "search_results/20251015_094825/areas___Transnistria_electricity_network_OR_Cuciurgan_power_plant_Inter_RAO___en.json"
+    },
+    {
+      "category": "areas",
+      "query": "\"Moldova TEN-T transport corridor\" OR \"EU investment infrastructure Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/areas___Moldova_TEN-T_transport_corridor_OR_EU_investment_infrastructure_Moldova___en.md",
+      "json": "search_results/20251015_094825/areas___Moldova_TEN-T_transport_corridor_OR_EU_investment_infrastructure_Moldova___en.json"
+    },
+    {
+      "category": "structures",
+      "query": "Moldelectrica ownership OR restructuring",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/structures__Moldelectrica_ownership_OR_restructuring__en.md",
+      "json": "search_results/20251015_094825/structures__Moldelectrica_ownership_OR_restructuring__en.json"
+    },
+    {
+      "category": "structures",
+      "query": "\"Moldtelecom privatisation 2024\" OR \"telecom sector Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/structures___Moldtelecom_privatisation_2024_OR_telecom_sector_Moldova___en.md",
+      "json": "search_results/20251015_094825/structures___Moldtelecom_privatisation_2024_OR_telecom_sector_Moldova___en.json"
+    },
+    {
+      "category": "structures",
+      "query": "\"Energy Community Moldova report\" filetype:pdf",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/structures___Energy_Community_Moldova_report_filetype_pdf__en.md",
+      "json": "search_results/20251015_094825/structures___Energy_Community_Moldova_report_filetype_pdf__en.json"
+    },
+    {
+      "category": "structures",
+      "query": "\"Ministry of Infrastructure and Regional Development Moldova strategy\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/structures___Ministry_of_Infrastructure_and_Regional_Development_Moldova_strategy___en.md",
+      "json": "search_results/20251015_094825/structures___Ministry_of_Infrastructure_and_Regional_Development_Moldova_strategy___en.json"
+    },
+    {
+      "category": "capabilities",
+      "query": "\"Moldova energy dependence on Russia\" 2024..2025",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/capabilities___Moldova_energy_dependence_on_Russia_2024..2025__en.md",
+      "json": "search_results/20251015_094825/capabilities___Moldova_energy_dependence_on_Russia_2024..2025__en.json"
+    },
+    {
+      "category": "capabilities",
+      "query": "\"ENISA Moldova cybersecurity report\" OR \"cyber maturity Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/capabilities___ENISA_Moldova_cybersecurity_report_OR_cyber_maturity_Moldova___en.md",
+      "json": "search_results/20251015_094825/capabilities___ENISA_Moldova_cybersecurity_report_OR_cyber_maturity_Moldova___en.json"
+    },
+    {
+      "category": "capabilities",
+      "query": "\"World Bank Moldova infrastructure connectivity\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/capabilities___World_Bank_Moldova_infrastructure_connectivity___en.md",
+      "json": "search_results/20251015_094825/capabilities___World_Bank_Moldova_infrastructure_connectivity___en.json"
+    },
+    {
+      "category": "capabilities",
+      "query": "\"road quality index Moldova 2024\" OR \"transport resilience Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/capabilities___road_quality_index_Moldova_2024_OR_transport_resilience_Moldova___en.md",
+      "json": "search_results/20251015_094825/capabilities___road_quality_index_Moldova_2024_OR_transport_resilience_Moldova___en.json"
+    },
+    {
+      "category": "organisations",
+      "query": "\"EU4Energy Moldova\" OR \"Energy Community Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/organisations___EU4Energy_Moldova_OR_Energy_Community_Moldova___en.md",
+      "json": "search_results/20251015_094825/organisations___EU4Energy_Moldova_OR_Energy_Community_Moldova___en.json"
+    },
+    {
+      "category": "organisations",
+      "query": "\"Gazprom Moldova\" OR \"Inter RAO Transnistria\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/organisations___Gazprom_Moldova_OR_Inter_RAO_Transnistria___en.md",
+      "json": "search_results/20251015_094825/organisations___Gazprom_Moldova_OR_Inter_RAO_Transnistria___en.json"
+    },
+    {
+      "category": "organisations",
+      "query": "\"Council of Europe Eastern Partnership infrastructure\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/organisations___Council_of_Europe_Eastern_Partnership_infrastructure___en.md",
+      "json": "search_results/20251015_094825/organisations___Council_of_Europe_Eastern_Partnership_infrastructure___en.json"
+    },
+    {
+      "category": "organisations",
+      "query": "\"USAID Moldova renewable project\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/organisations___USAID_Moldova_renewable_project___en.md",
+      "json": "search_results/20251015_094825/organisations___USAID_Moldova_renewable_project___en.json"
+    },
+    {
+      "category": "people",
+      "query": "\"engineers Moldova workforce\" OR \"technical education Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/people___engineers_Moldova_workforce_OR_technical_education_Moldova___en.md",
+      "json": "search_results/20251015_094825/people___engineers_Moldova_workforce_OR_technical_education_Moldova___en.json"
+    },
+    {
+      "category": "people",
+      "query": "\"brain drain Moldova infrastructure sector\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/people___brain_drain_Moldova_infrastructure_sector___en.md",
+      "json": "search_results/20251015_094825/people___brain_drain_Moldova_infrastructure_sector___en.json"
+    },
+    {
+      "category": "people",
+      "query": "\"human capital energy sector Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/people___human_capital_energy_sector_Moldova___en.md",
+      "json": "search_results/20251015_094825/people___human_capital_energy_sector_Moldova___en.json"
+    },
+    {
+      "category": "events",
+      "query": "\"Moldova cyberattack 2025\" OR \"government websites hacked Moldova\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/events___Moldova_cyberattack_2025_OR_government_websites_hacked_Moldova___en.md",
+      "json": "search_results/20251015_094825/events___Moldova_cyberattack_2025_OR_government_websites_hacked_Moldova___en.json"
+    },
+    {
+      "category": "events",
+      "query": "\"Dniester bridge repairs Moldova site:dw.com\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/events___Dniester_bridge_repairs_Moldova_site_dw.com___en.md",
+      "json": "search_results/20251015_094825/events___Dniester_bridge_repairs_Moldova_site_dw.com___en.json"
+    },
+    {
+      "category": "events",
+      "query": "\"energy crisis Moldova winter 2024\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/events___energy_crisis_Moldova_winter_2024___en.md",
+      "json": "search_results/20251015_094825/events___energy_crisis_Moldova_winter_2024___en.json"
+    },
+    {
+      "category": "events",
+      "query": "\"EU aid infrastructure Moldova 2025\"",
+      "language": "en",
+      "markdown": "search_results/20251015_094825/events___EU_aid_infrastructure_Moldova_2025___en.md",
+      "json": "search_results/20251015_094825/events___EU_aid_infrastructure_Moldova_2025___en.json"
+    }
+  ]
+}
