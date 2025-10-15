@@ -1,6 +1,0 @@
-OLD
-build
-prompts
-qatis
-search_results
-search_results_social
