@@ -188,14 +188,15 @@ def main() -> int:
         for query in queries:
             for lang_label, lang_region in lang_variants:
                 results_by_engine: Dict[str, List[Dict[str, Any]]] = {}
-                if "web" in args.engines:
+                # Only run web (DuckDuckGo) once for English to reduce request volume
+                if "web" in args.engines and lang_region is None:
                     results_by_engine["web"] = run_google_search(
                         api_key=api_key,
                         query=query,
                         year_min=args.year_min,
                         year_max=args.year_max,
                         top_k=args.top_k,
-                        lang_region=lang_region,
+                        lang_region=None,
                     )
                 if "scholar" in args.engines:
                     results_by_engine["scholar"] = run_scholar_search(
