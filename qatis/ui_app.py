@@ -192,13 +192,16 @@ vk:
             include_comments = st.checkbox("Include Reddit top comments", value=True, help="Include Reddit post comments in analysis (requires praw)")
     with col2:
         st.subheader("Search Settings")
+        speed_mode = st.checkbox("Speed mode (fast defaults)", value=False, help="Optimized for speed: web only, English only, small top_k, concurrency, minimal disk writes")
         year_min = st.number_input("Year min", value=2024)
         year_max = st.number_input("Year max", value=2025)
-        top_k = st.number_input("Results per query (per engine)", value=20)
+        default_top_k = 5 if speed_mode else 20
+        top_k = st.number_input("Results per query (per engine)", value=default_top_k)
 
         # Combined engines selection (web/academic + social platforms)
         all_engines = ["web", "scholar", "x", "youtube", "reddit", "vk"]
-        engines = st.multiselect("Engines & Platforms", all_engines, default=["web", "scholar"], help="Select web/academic engines and social platforms to search")
+        default_engines = ["web"] if speed_mode else ["web", "scholar"]
+        engines = st.multiselect("Engines & Platforms", all_engines, default=default_engines, help="Select web/academic engines and social platforms to search")
         
         # Show dependency hints for social platforms
         selected_social = [e for e in engines if e in ["x", "youtube", "reddit", "vk"]]
@@ -223,7 +226,8 @@ If scrapers fail, check stderr output after collection.
         web_engines = [e for e in engines if e in ["web", "scholar"]]
         social_platforms = [e for e in engines if e in ["x", "youtube", "reddit", "vk"]]
 
-        lang_choice = st.selectbox("Language bias", ["English only", "Russian only", "Romanian only", "All (en+ru+ro)"], index=0)
+        default_lang_index = 0  # English only
+        lang_choice = st.selectbox("Language bias", ["English only", "Russian only", "Romanian only", "All (en+ru+ro)"], index=default_lang_index)
         include_ru = lang_choice in ["Russian only", "All (en+ru+ro)"]
         include_ro = lang_choice in ["Romanian only", "All (en+ru+ro)"]
 
@@ -285,6 +289,8 @@ If scrapers fail, check stderr output after collection.
             "--top-k", str(int(top_k)),
             "--engines", *web_engines,
         ]
+        if speed_mode:
+            args += ["--concurrency", "6", "--no-markdown"]
         if include_ru:
             args.append("--include-ru")
         if include_ro:
@@ -541,18 +547,26 @@ If scrapers fail, check stderr output after collection.
 
     st.header("3) Analyze")
     if results_dir:
-        model = st.text_input("Model", value="gpt-4o-mini")
-        batch_size = st.number_input("Batch size", value=20)
-        limit = st.number_input("Limit (0=all)", value=0)
-        no_fetch = st.checkbox("No fetch (skip article text)")
+        model_default = "gpt-4o"
+        batch_default = 50 if st.session_state.get("speed_mode_active") else 20
+        model = st.text_input("Model", value=model_default)
+        batch_size = st.number_input("Batch size", value=batch_default)
+        limit_default = 100 if st.session_state.get("speed_mode_active") else 0
+        limit = st.number_input("Limit (0=all)", value=limit_default)
+        no_fetch_default = True if st.session_state.get("speed_mode_active") else False
+        no_fetch = st.checkbox("No fetch (skip article text)", value=no_fetch_default)
         no_cache = st.checkbox("No cache")
 
         # Content analysis controls
         col5, col6 = st.columns(2)
+        # Persist speed mode in session for analysis defaults
+        st.session_state["speed_mode_active"] = speed_mode
         with col5:
-            max_content_chars = st.number_input("Max content chars", value=8000, help="Truncate content beyond this length to control costs")
+            default_mcc = 1500 if speed_mode else 8000
+            max_content_chars = st.number_input("Max content chars", value=default_mcc, help="Truncate content beyond this length to control costs")
         with col6:
-            content_mode = st.selectbox("Content mode", ["auto", "full", "min"], index=0, help="auto: prefer full_content, full: always full, min: prefer snippet")
+            default_cm_index = 2 if speed_mode else 0  # min if speed mode else auto
+            content_mode = st.selectbox("Content mode", ["auto", "full", "min"], index=default_cm_index, help="auto: prefer full_content, full: always full, min: prefer snippet")
 
         # Allow selecting which CSV to analyze
         rd_path = pathlib.Path(results_dir)
@@ -570,6 +584,7 @@ If scrapers fail, check stderr output after collection.
                 "--model", model,
                 "--batch-size", str(int(batch_size)),
                 "--max-content-chars", str(int(max_content_chars)),
+                "--content-mode", content_mode,
             ]
             if int(limit) > 0:
                 args += ["--limit", str(int(limit))]
@@ -577,6 +592,8 @@ If scrapers fail, check stderr output after collection.
                 args.append("--no-fetch")
             if no_cache:
                 args.append("--no-cache")
+            if speed_mode:
+                args += ["--concurrency", "4"]
             
             a_prog = st.progress(0, text="Starting analysis...")
             status_placeholder = st.empty()

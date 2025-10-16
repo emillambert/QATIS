@@ -51,6 +51,20 @@ python run_searches.py \
   --include-ro
 ```
 
+Speed mode (fast):
+
+```bash
+python run_searches.py \
+  --queries /Users/emilwl/Documents/QATIS/queries.yaml \
+  --output-dir /Users/emilwl/Documents/QATIS/search_results \
+  --year-min 2024 \
+  --year-max 2025 \
+  --top-k 5 \
+  --engines web \
+  --concurrency 6 \
+  --no-markdown
+```
+
 Outputs:
 - Per-query `.md` and `.json` files under `search_results/<timestamp>/`
 - `index.json` with pointers
@@ -144,6 +158,20 @@ python analyze_results.py \
   --model gpt-4o-mini \
   --batch-size 5 \
   --no-fetch
+```
+
+Speed mode (fast):
+
+```bash
+python analyze_results.py \
+  --results-dir /Users/emilwl/Documents/QATIS/search_results \
+  --input merged_results_with_social.csv \
+  --model gpt-4o-mini \
+  --batch-size 50 \
+  --limit 100 \
+  --no-fetch \
+  --content-mode min \
+  --concurrency 4
 ```
 
 Flags:

@@ -25,6 +25,7 @@ qatis ui
    - Edit queries in the left panel (or use defaults)
    - Optional: select social platforms (X, YouTube)
    - Adjust settings in right panel
+   - Toggle "Speed mode" for faster runs (web-only, English-only, lower top_k, concurrent collection, minimal disk writes)
    - Click "Run Collection"
    - Progress bar shows status with time remaining
 
@@ -33,7 +34,8 @@ qatis ui
    - Preview deduped results table
 
 5. **Analyze** (Step 3):
-   - Keep defaults (gpt-4o-mini, batch=20)
+   - Keep defaults (gpt-4o-mini, batch=20) or use "Speed mode" settings
+     - Speed mode uses: `gpt-4o-mini`, `batch_size=50`, `limit=100`, `--no-fetch`, `content_mode=min`, and concurrent batches
    - Click "Run Analysis"
    - View scored results with intel labels
 
@@ -91,6 +93,9 @@ qatis collect \
   --top-k 20 \
   --engines web scholar
 
+# Speed mode equivalent flags (collector):
+#   --concurrency 6 --no-markdown
+
 # Step 2: Export and deduplicate
 qatis export \
   --results-dir search_results/20251015_103707 \
@@ -103,7 +108,11 @@ qatis analyze \
   --input results_deduped.csv \
   --model gpt-4o-mini \
   --batch-size 20 \
-  --no-fetch
+  --no-fetch \
+  --content-mode auto
+
+# Speed mode equivalent flags (analyzer):
+#   --batch-size 50 --limit 100 --no-fetch --content-mode min --concurrency 4
 
 # Outputs:
 # - results_scored.csv (all sources with labels)
