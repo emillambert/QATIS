@@ -12,6 +12,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+import concurrent.futures as futures
 
 from dotenv import load_dotenv
 try:
@@ -136,11 +137,14 @@ def load_system_prompt(results_dir: pathlib.Path) -> str:
     return "Return {\"results\": []} with same length as input items."
 
 
-def prepare_item_payload(row: Row, content: Optional[str], max_chars: int = 8000) -> Dict[str, Any]:
+def prepare_item_payload(row: Row, content: Optional[str], max_chars: int = 8000, content_mode: str = "auto") -> Dict[str, Any]:
     # Priority: 1) full_content from scraper, 2) fetched content, 3) snippet
     analyzable_content = None
 
-    if hasattr(row, 'full_content') and row.full_content:
+    # If minimal mode, prefer snippet and skip heavy content
+    if content_mode == "min":
+        analyzable_content = row.snippet or None
+    elif hasattr(row, 'full_content') and row.full_content:
         analyzable_content = row.full_content
     elif content:  # fetched via trafilatura
         analyzable_content = content
@@ -313,12 +317,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze search results with LLM and export scores/PMESII/BibTeX")
     parser.add_argument("--results-dir", required=True, help="Timestamped results dir, e.g. search_results/20251015_001826")
     parser.add_argument("--input", default="results_deduped.csv", help="Input CSV (deduped or raw)")
-    parser.add_argument("--model", default="gpt-4o-mini", help="Model name")
+    parser.add_argument("--model", default="gpt-4o", help="Model name")
     parser.add_argument("--batch-size", type=int, default=20)
     parser.add_argument("--limit", type=int, default=0, help="Only analyze first N rows if >0")
     parser.add_argument("--no-fetch", action="store_true", help="Do not fetch article text")
     parser.add_argument("--no-cache", action="store_true", help="Disable cache reuse")
     parser.add_argument("--max-content-chars", type=int, default=8000, help="Max content length for analysis (default 8000)")
+    parser.add_argument("--content-mode", choices=["auto", "full", "min"], default="auto", help="Content selection strategy: auto/full/min")
+    parser.add_argument("--concurrency", type=int, default=1, help="Number of concurrent LLM batches")
     args = parser.parse_args()
 
     results_dir = pathlib.Path(args.results_dir)
@@ -405,6 +411,10 @@ def main() -> int:
             src_rel = admiralty.get("source_reliability") if isinstance(admiralty.get("source_reliability"), str) else "D"
             if src_rel not in ("A","B","C","D","E","F"):
                 src_rel = "D"
+            dist_origin = admiralty.get("distance_to_origin") if isinstance(admiralty.get("distance_to_origin"), str) else None
+            if dist_origin not in ("a","b","c","d","e","f"):
+                # Default to 'c' for OSINT second-hand if unclear; use 'f' if explicitly unknown
+                dist_origin = "c"
             try:
                 info_cred = int(admiralty.get("info_credibility"))
             except Exception:
@@ -436,6 +446,7 @@ def main() -> int:
                 "pmesii": pmesii,
                 "source_type": src_type,
                 "admiralty_source_reliability": src_rel,
+                "admiralty_distance_to_origin": dist_origin,
                 "admiralty_info_credibility": info_cred,
                 "rationale": rationale,
             }
@@ -472,18 +483,116 @@ def main() -> int:
             sys.stdout.flush()
         
         content = None
-        if not args.no_fetch and url:
+        if not args.no_fetch and url and args.content_mode != "min":
             content = fetch_content(url)
-        payload = prepare_item_payload(row, content, args.max_content_chars)
+        payload = prepare_item_payload(row, content, args.max_content_chars, args.content_mode)
         batch.append((row, payload))
         if len(batch) >= args.batch_size:
-            flush_batch()
-            # Gentle pacing
-            time.sleep(0.5)
+            if args.concurrency <= 1:
+                flush_batch()
+                time.sleep(0.5)
+            else:
+                # In concurrent mode, dispatch this batch to a worker immediately
+                dispatched_batches.append(list(batch))
+                batch = []
 
-    flush_batch()
-    if batch:
-        processed_count += len(batch)
+    # Setup for optional concurrent execution
+    dispatched_batches: List[List[Tuple[Row, Dict[str, Any]]]] = []
+    # Flush any remaining in single-thread mode
+    if args.concurrency <= 1:
+        flush_batch()
+        if batch:
+            processed_count += len(batch)
+    else:
+        # Include last partial batch if any
+        if batch:
+            dispatched_batches.append(list(batch))
+            batch = []
+        # Process batches concurrently
+        def process_dispatched(b: List[Tuple[Row, Dict[str, Any]]]):
+            items_payload = [p for (_r, p) in b]
+            return call_llm(client, args.model, system_prompt, items_payload)
+
+        with futures.ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
+            future_to_batch = {pool.submit(process_dispatched, b): b for b in dispatched_batches}
+            for fut in futures.as_completed(future_to_batch):
+                b = future_to_batch[fut]
+                try:
+                    results = fut.result()
+                except Exception:
+                    results = [
+                        {
+                            "label": "non_intel",
+                            "confidence": 0.0,
+                            "pmesii": [],
+                            "source_type": "other",
+                            "admiralty": {"source_reliability": "D", "info_credibility": 4},
+                            "rationale": "Batch failed; defaulted to non_intel",
+                        }
+                    ] * len(b)
+                if len(results) != len(b):
+                    results = results[: len(b)]
+                for (row, payload), label in zip(b, results):
+                    lab = label.get("label") if isinstance(label.get("label"), str) else "non_intel"
+                    lab = lab if lab in ("intel", "non_intel") else "non_intel"
+                    try:
+                        conf = float(label.get("confidence"))
+                    except Exception:
+                        conf = 0.0
+                    if conf < 0:
+                        conf = 0.0
+                    if conf > 1:
+                        conf = 1.0
+                    pmesii = [x for x in (label.get("pmesii") or []) if x in ["Areas","Structures","Capabilities","Organisations","People","Events"]]
+                    src_type = label.get("source_type") if isinstance(label.get("source_type"), str) else "other"
+                    if src_type not in ("news","report","journal","gov","NGO","company","think_tank","other"):
+                        src_type = "other"
+                    admiralty = label.get("admiralty") or {}
+                    src_rel = admiralty.get("source_reliability") if isinstance(admiralty.get("source_reliability"), str) else "D"
+                    if src_rel not in ("A","B","C","D","E","F"):
+                        src_rel = "D"
+                    dist_origin = admiralty.get("distance_to_origin") if isinstance(admiralty.get("distance_to_origin"), str) else None
+                    if dist_origin not in ("a","b","c","d","e","f"):
+                        dist_origin = "c"
+                    try:
+                        info_cred = int(admiralty.get("info_credibility"))
+                    except Exception:
+                        info_cred = 4
+                    if info_cred not in (1,2,3,4,5,6):
+                        info_cred = 4
+                    rationale = label.get("rationale") or ""
+                    if len(rationale) > 280:
+                        rationale = rationale[:277] + "..."
+                    enriched = {
+                        **payload,
+                        "category": row.category,
+                        "query": row.query,
+                        "language": row.language,
+                        "engine": row.engine,
+                        "title": row.title,
+                        "link": row.link,
+                        "source": row.source,
+                        "publication_info": row.publication_info,
+                        "pdf_link": row.pdf_link,
+                        "date": row.date,
+                        "snippet": row.snippet,
+                        "position": row.position,
+                        "year_min": row.year_min,
+                        "year_max": row.year_max,
+                        "occurrences": row.occurrences,
+                        "label": lab,
+                        "confidence": conf,
+                        "pmesii": pmesii,
+                        "source_type": src_type,
+                        "admiralty_source_reliability": src_rel,
+                        "admiralty_distance_to_origin": dist_origin,
+                        "admiralty_info_credibility": info_cred,
+                        "rationale": rationale,
+                    }
+                    enriched_rows.append(enriched)
+                processed_count += len(b)
+                print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%)")
+                sys.stdout.flush()
 
     # Write cache
     with open(cache_path, "w", encoding="utf-8") as f:
@@ -493,7 +602,7 @@ def main() -> int:
     # CSV outputs
     base_fields = [
         "category","query","language","engine","title","link","source","publication_info","pdf_link","date","snippet","position","year_min","year_max","occurrences",
-        "label","confidence","pmesii","source_type","admiralty_source_reliability","admiralty_info_credibility","rationale"
+        "label","confidence","pmesii","source_type","admiralty_source_reliability","admiralty_distance_to_origin","admiralty_info_credibility","rationale"
     ]
     all_csv = results_dir / "results_scored.csv"
     write_csv(all_csv, base_fields, enriched_rows)

@@ -7,6 +7,8 @@ import pathlib
 import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple
+import concurrent.futures as futures
+import threading
 
 import yaml
 from dotenv import load_dotenv
@@ -166,6 +168,8 @@ def main() -> int:
     )
     parser.add_argument("--include-ru", action="store_true", help="Also run searches with Russian language bias (lr=lang_ru)")
     parser.add_argument("--include-ro", action="store_true", help="Also run searches with Romanian language bias (lr=lang_ro)")
+    parser.add_argument("--concurrency", type=int, default=6, help="Number of concurrent query tasks")
+    parser.add_argument("--no-markdown", action="store_true", help="Skip writing per-query markdown files for speed")
     args = parser.parse_args()
 
     api_key = load_scraperapi_key_compat()
@@ -184,57 +188,110 @@ def main() -> int:
     if args.include_ro:
         lang_variants.append(("ro", "lang_ro"))
 
+    # Build task list
+    tasks: List[Tuple[str, str, Tuple[str, Optional[str]]]] = []
     for category, queries in queries_by_category.items():
         for query in queries:
             for lang_label, lang_region in lang_variants:
-                results_by_engine: Dict[str, List[Dict[str, Any]]] = {}
-                # Only run web (DuckDuckGo) once for English to reduce request volume
-                if "web" in args.engines and lang_region is None:
-                    results_by_engine["web"] = run_google_search(
-                        api_key=api_key,
-                        query=query,
-                        year_min=args.year_min,
-                        year_max=args.year_max,
-                        top_k=args.top_k,
-                        lang_region=None,
-                    )
-                if "scholar" in args.engines:
-                    results_by_engine["scholar"] = run_scholar_search(
-                        api_key=api_key,
-                        query=query,
-                        year_min=args.year_min,
-                        year_max=args.year_max,
-                        top_k=args.top_k,
-                        lang_region=lang_region,
-                    )
+                tasks.append((category, query, (lang_label, lang_region)))
 
-                md_path = write_markdown(
-                    out_dir=out_dir,
-                    category=category,
+    total_tasks = len(tasks)
+    completed = 0
+    completed_lock = threading.Lock()
+
+    def process_task(task: Tuple[str, str, Tuple[str, Optional[str]]]) -> Dict[str, Any]:
+        category, query, (lang_label, lang_region) = task
+        results_by_engine: Dict[str, List[Dict[str, Any]]] = {}
+
+        # Run engines concurrently per task for speed
+        engine_results: Dict[str, List[Dict[str, Any]]] = {}
+
+        def run_engine(name: str):
+            if name == "web":
+                return run_google_search(
+                    api_key=api_key,
                     query=query,
                     year_min=args.year_min,
                     year_max=args.year_max,
-                    results_by_engine=results_by_engine,
-                    lang_label=lang_label,
+                    top_k=args.top_k,
+                    lang_region=None,
                 )
-                json_path = write_json(
-                    out_dir=out_dir,
-                    category=category,
+            elif name == "scholar":
+                return run_scholar_search(
+                    api_key=api_key,
                     query=query,
                     year_min=args.year_min,
                     year_max=args.year_max,
-                    results_by_engine=results_by_engine,
-                    lang_label=lang_label,
+                    top_k=args.top_k,
+                    lang_region=lang_region,
                 )
-                index_entries.append(
-                    {
-                        "category": category,
-                        "query": query,
-                        "language": lang_label,
-                        "markdown": str(md_path),
-                        "json": str(json_path),
-                    }
-                )
+            return []
+
+        inner_engines: List[str] = []
+        # Only run web once for English (lang_region None)
+        if "web" in args.engines and lang_region is None:
+            inner_engines.append("web")
+        if "scholar" in args.engines:
+            inner_engines.append("scholar")
+
+        if inner_engines:
+            with futures.ThreadPoolExecutor(max_workers=len(inner_engines)) as inner_pool:
+                futs = {inner_pool.submit(run_engine, en): en for en in inner_engines}
+                for fut in futures.as_completed(futs):
+                    en = futs[fut]
+                    try:
+                        engine_results[en] = fut.result() or []
+                    except Exception:
+                        engine_results[en] = []
+
+        results_by_engine.update(engine_results)
+
+        md_path = None
+        if not args.no_markdown:
+            md_path = write_markdown(
+                out_dir=out_dir,
+                category=category,
+                query=query,
+                year_min=args.year_min,
+                year_max=args.year_max,
+                results_by_engine=results_by_engine,
+                lang_label=lang_label,
+            )
+        json_path = write_json(
+            out_dir=out_dir,
+            category=category,
+            query=query,
+            year_min=args.year_min,
+            year_max=args.year_max,
+            results_by_engine=results_by_engine,
+            lang_label=lang_label,
+        )
+        return {
+            "category": category,
+            "query": query,
+            "language": lang_label,
+            "markdown": str(md_path) if md_path else "",
+            "json": str(json_path),
+        }
+
+    if total_tasks:
+        print(f"Progress: 0/{total_tasks} (0%) - Starting collection...")
+        sys.stdout.flush()
+
+    with futures.ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
+        future_map = {pool.submit(process_task, t): t for t in tasks}
+        for fut in futures.as_completed(future_map):
+            try:
+                entry = fut.result()
+                index_entries.append(entry)
+            except Exception:
+                # Skip failed task, but continue
+                pass
+            with completed_lock:
+                completed += 1
+                pct = int(100 * completed / total_tasks) if total_tasks else 100
+                print(f"Progress: {completed}/{total_tasks} ({pct}%) - Collected")
+                sys.stdout.flush()
 
     index_path = out_dir / "index.json"
     with open(index_path, "w", encoding="utf-8") as f:
