@@ -27,85 +27,106 @@ def duckduckgo_search(
     lang_region: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Run DuckDuckGo search using direct requests + BeautifulSoup (free, no API key).
-    
-    Args:
-        query: Search query
-        year_min: Start year (note: DDG doesn't support date filtering via URL)
-        year_max: End year
-        top_k: Number of results
-        lang_region: Language region (ignored for DDG)
-    
-    Returns:
-        List of search result dicts
+
+    - Respects language via DDG 'kl' param (en/ru/ro).
+    - Avoids adding year range if already present in the query.
+    - Throttles to ~0.2–0.3 QPS with exponential backoff on 403/429.
     """
     try:
         import urllib.parse
         import requests
         from bs4 import BeautifulSoup
         import time
-        
-        # Add year to query if specified
-        search_query = f"{query} {year_min}..{year_max}" if year_min else query
-        
+        import random
+        import re
+
+        # Map language bias to DDG 'kl' parameter
+        kl_map = {
+            None: "us-en",
+            "lang_ru": "ru-ru",
+            "lang_ro": "ro-ro",
+        }
+        kl = kl_map.get(lang_region, "us-en")
+
+        # Avoid duplicate year range if already in query (e.g., "... 2024..2025")
+        has_range = bool(re.search(r"\b20\d{2}\.\.20\d{2}\b", query))
+        search_query = query if has_range else f"{query} {year_min}..{year_max}"
+
         # Construct DuckDuckGo search URL
         params = {
             "q": search_query,
-            "kl": "us-en",  # Region
+            "kl": kl,
         }
-        
         ddg_url = f"https://html.duckduckgo.com/html/?{urllib.parse.urlencode(params)}"
-        
+
         # Make request with headers
         headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            ),
+            # Not strictly required, but can help DDG locale routing
+            "Accept-Language": "en-US,en;q=0.9" if kl == "us-en" else ("ru-RU,ru;q=0.9" if kl == "ru-ru" else "ro-RO,ro;q=0.9"),
         }
-        
-        # Small delay to be respectful
-        time.sleep(1)
-        
-        response = requests.get(ddg_url, headers=headers, timeout=15)
-        response.raise_for_status()
-        
-        # Parse results using BeautifulSoup
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        items = []
-        # DuckDuckGo results are in divs with class 'result' or 'web-result'
-        result_divs = soup.select('div.result, div.web-result, div.results_links')
-        
-        for idx, result_div in enumerate(result_divs[:top_k]):
+
+        # Baseline throttle to ~0.2–0.3 QPS
+        time.sleep(3.5 + random.uniform(0.5, 1.5))
+
+        # Retry with exponential backoff + jitter for 403/429/network errors
+        last_exc = None
+        for attempt in range(5):
             try:
-                # Title and link
-                link_elem = result_div.select_one('a.result__a, a[class*="result"]')
-                snippet_elem = result_div.select_one('a.result__snippet, div.result__snippet, span.result__snippet')
-                
-                if not link_elem:
-                    continue
-                
-                title = link_elem.get_text(strip=True)
-                link = link_elem.get('href', '')
-                
-                # Clean DDG redirect URL
-                if link.startswith('/'):
-                    # Extract actual URL from DDG redirect
-                    import re
-                    match = re.search(r'uddg=([^&]+)', link)
-                    if match:
-                        link = urllib.parse.unquote(match.group(1))
-                
-                items.append({
-                    "title": title,
-                    "link": link,
-                    "snippet": snippet_elem.get_text(strip=True) if snippet_elem else "",
-                    "source": "",
-                    "date": "",
-                    "position": idx + 1,
-                    "engine": "duckduckgo"
-                })
+                response = requests.get(ddg_url, headers=headers, timeout=15)
+                if response.status_code in (403, 429):
+                    raise RuntimeError(f"DDG blocked: {response.status_code}")
+                response.raise_for_status()
+
+                # Parse results using BeautifulSoup
+                soup = BeautifulSoup(response.text, 'html.parser')
+
+                items: List[Dict[str, Any]] = []
+                # DuckDuckGo results are in divs with class 'result' or 'web-result'
+                result_divs = soup.select('div.result, div.web-result, div.results_links')
+
+                for idx, result_div in enumerate(result_divs[:top_k]):
+                    try:
+                        # Title and link
+                        link_elem = result_div.select_one('a.result__a, a[class*="result"]')
+                        snippet_elem = result_div.select_one('a.result__snippet, div.result__snippet, span.result__snippet')
+
+                        if not link_elem:
+                            continue
+
+                        title = link_elem.get_text(strip=True)
+                        link = link_elem.get('href', '')
+
+                        # Clean DDG redirect URL
+                        if link.startswith('/'):
+                            match = re.search(r'uddg=([^&]+)', link)
+                            if match:
+                                link = urllib.parse.unquote(match.group(1))
+
+                        items.append({
+                            "title": title,
+                            "link": link,
+                            "snippet": snippet_elem.get_text(strip=True) if snippet_elem else "",
+                            "source": "",
+                            "date": "",
+                            "position": idx + 1,
+                            "engine": "duckduckgo"
+                        })
+                    except Exception:
+                        continue
+
+                return items
             except Exception as e:
+                last_exc = e
+                # Exponential backoff with jitter
+                time.sleep((2 ** attempt) + random.uniform(0.2, 0.8))
                 continue
-        
-        return items
+
+        print(f"Error with DuckDuckGo search: {last_exc}")
+        return []
     except Exception as e:
         print(f"Error with DuckDuckGo search: {e}")
         return []
