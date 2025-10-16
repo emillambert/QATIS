@@ -43,6 +43,7 @@ class Row:
     pdf_link: Optional[str]
     date: Optional[str]
     snippet: Optional[str]
+    full_content: Optional[str]  # NEW: Enhanced content for social media
     position: Optional[str]
     year_min: Optional[str]
     year_max: Optional[str]
@@ -136,15 +137,29 @@ def load_system_prompt(results_dir: pathlib.Path) -> str:
     return "Return {\"results\": []} with same length as input items."
 
 
-def prepare_item_payload(row: Row, content: Optional[str]) -> Dict[str, Any]:
+def prepare_item_payload(row: Row, content: Optional[str], max_chars: int = 8000) -> Dict[str, Any]:
+    # Priority: 1) full_content from scraper, 2) fetched content, 3) snippet
+    analyzable_content = None
+
+    if hasattr(row, 'full_content') and row.full_content:
+        analyzable_content = row.full_content
+    elif content:  # fetched via trafilatura
+        analyzable_content = content
+    elif row.snippet:
+        analyzable_content = row.snippet
+
+    # Truncate if too long to control costs
+    if analyzable_content and len(analyzable_content) > max_chars:
+        analyzable_content = analyzable_content[:max_chars] + "...[truncated]"
+
     return {
         "title": row.title,
-        "snippet": row.snippet,
+        "snippet": row.snippet[:280],  # Keep short preview
         "source": row.source or row.publication_info,
         "date": row.date,
         "url": row.link,
         "language": row.language,
-        "content": content or None,
+        "content": analyzable_content,  # This is what GPT analyzes
     }
 
 
@@ -304,6 +319,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=0, help="Only analyze first N rows if >0")
     parser.add_argument("--no-fetch", action="store_true", help="Do not fetch article text")
     parser.add_argument("--no-cache", action="store_true", help="Disable cache reuse")
+    parser.add_argument("--max-content-chars", type=int, default=8000, help="Max content length for analysis (default 8000)")
     args = parser.parse_args()
 
     results_dir = pathlib.Path(args.results_dir)
@@ -437,7 +453,7 @@ def main() -> int:
         content = None
         if not args.no_fetch and url:
             content = fetch_content(url)
-        payload = prepare_item_payload(row, content)
+        payload = prepare_item_payload(row, content, args.max_content_chars)
         batch.append((row, payload))
         if len(batch) >= args.batch_size:
             flush_batch()

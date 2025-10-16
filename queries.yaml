@@ -1,3 +1,7 @@
+# Web/Academic Search Queries - Based on core PMESII concepts
+# These queries use web search operators (OR, site:, filetype:, date ranges)
+# See queries_social.yaml for platform-specific adaptations
+
 areas:
   - "Moldova infrastructure overview" OR "critical infrastructure Moldova"
   - "Moldova energy grid" OR "power transmission Moldova site:europa.eu"

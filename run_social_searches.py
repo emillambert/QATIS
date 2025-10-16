@@ -3,6 +3,7 @@ import argparse
 import datetime as dt
 import json
 import pathlib
+import os
 from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
@@ -130,8 +131,73 @@ def scrape_x(query: str, top_k: int) -> List[Dict[str, Any]]:
     return items
 
 
+def scrape_youtube_enhanced(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Scrape YouTube with FULL transcripts/captions (crucial for GPT analysis)."""
+    items: List[Dict[str, Any]] = []
+    try:
+        from yt_dlp import YoutubeDL
+        import re
+    except ImportError:
+        return items
+
+    try:
+        # Extract video info
+        with YoutubeDL({"quiet": True, "nocheckcertificate": True}) as ydl:
+            info = ydl.extract_info(f"ytsearch{top_k}:{query}", download=False)
+
+            for e in (info.get("entries") or []):
+                video_id = e.get("id")
+                transcript_text = ""
+                transcript_available = False
+
+                # Try to get transcript/captions
+                if video_id:
+                    try:
+                        from youtube_transcript_api import YouTubeTranscriptApi
+                        # Try multiple languages in priority order for Moldova
+                        for lang_codes in [['en'], ['ro'], ['ru'], ['en', 'ro', 'ru']]:
+                            try:
+                                transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=lang_codes)
+                                transcript_text = " ".join([seg['text'] for seg in transcript])
+                                transcript_available = True
+                                break
+                            except:
+                                continue
+                    except Exception as e:
+                        print(f"No transcript for {video_id}: {e}")
+
+                # Fallback hierarchy: transcript > description
+                if transcript_available:
+                    full_content = f"{e.get('description') or ''}\n\n[TRANSCRIPT]\n{transcript_text}"
+                    content_quality = "high"  # Has transcript
+                else:
+                    full_content = e.get("description") or ""
+                    content_quality = "low"   # Description only
+
+                # Clean up transcript text
+                if transcript_text:
+                    transcript_text = re.sub(r'\s+', ' ', transcript_text).strip()
+
+                items.append({
+                    "title": e.get("title"),
+                    "link": e.get("webpage_url"),
+                    "source": e.get("uploader") or e.get("channel"),
+                    "date": e.get("upload_date"),
+                    "snippet": full_content[:500],  # Preview
+                    "full_content": full_content[:8000],  # Full text for GPT (matching trafilatura limit)
+                    "engine": "youtube",
+                    "duration": e.get("duration"),
+                    "view_count": e.get("view_count"),
+                    "content_quality": content_quality,
+                })
+    except Exception as e:
+        print(f"YouTube scraping failed: {e}")
+
+    return items
+
+
 def scrape_youtube(query: str, top_k: int) -> List[Dict[str, Any]]:
-    """Scrape YouTube using yt-dlp (free)."""
+    """Scrape YouTube using yt-dlp (legacy, fallback)."""
     items: List[Dict[str, Any]] = []
     try:
         from yt_dlp import YoutubeDL
@@ -156,6 +222,95 @@ def scrape_youtube(query: str, top_k: int) -> List[Dict[str, Any]]:
     return items
 
 
+def scrape_reddit_enhanced(query: str, top_k: int, subreddits: List[str] = None) -> List[Dict[str, Any]]:
+    """Scrape Reddit with top comments (crucial for context)."""
+    items = []
+    try:
+        import praw
+        import os
+
+        reddit = praw.Reddit(
+            client_id=os.getenv("REDDIT_CLIENT_ID"),
+            client_secret=os.getenv("REDDIT_CLIENT_SECRET"),
+            user_agent="QATIS OSINT v1.0"
+        )
+
+        search_target = "+".join(subreddits) if subreddits else "all"
+        subreddit = reddit.subreddit(search_target)
+
+        for submission in subreddit.search(query, limit=top_k, sort='relevance'):
+            # Get top comments for context
+            submission.comments.replace_more(limit=0)  # Remove "load more" placeholders
+            top_comments = []
+            for comment in submission.comments.list()[:10]:  # Top 10 comments
+                if hasattr(comment, 'body') and len(comment.body) > 20:
+                    top_comments.append(f"[{comment.score}↑] {comment.body[:500]}")
+
+            # Combine post + comments
+            full_content = f"{submission.selftext}\n\n[TOP COMMENTS]\n" + "\n\n".join(top_comments)
+
+            items.append({
+                "title": submission.title,
+                "link": f"https://reddit.com{submission.permalink}",
+                "source": f"r/{submission.subreddit.display_name}",
+                "date": dt.datetime.fromtimestamp(submission.created_utc).isoformat(),
+                "snippet": submission.selftext[:500] if submission.selftext else "",
+                "full_content": full_content[:8000],  # For GPT analysis
+                "engine": "reddit",
+                "score": submission.score,
+                "num_comments": submission.num_comments,
+            })
+    except Exception as e:
+        print(f"Reddit scraping failed: {e}")
+    return items
+
+
+def scrape_vk_enhanced(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Scrape VK (VKontakte) - crucial for Moldova/Eastern Europe."""
+    items = []
+    try:
+        import vk_api
+
+        vk = vk_api.VkApi()
+
+        results = vk.method('newsfeed.search', {
+            'q': query,
+            'count': min(top_k, 200),  # VK allows up to 200
+            'extended': 1  # Get extended info
+        })
+
+        for item in results.get('items', [])[:top_k]:
+            full_text = item.get('text', '')
+
+            # Include attachment info (photos, videos, links)
+            attachments_info = []
+            for att in item.get('attachments', []):
+                att_type = att.get('type')
+                if att_type == 'photo':
+                    attachments_info.append(f"[PHOTO: {att.get('photo', {}).get('text', 'no description')}]")
+                elif att_type == 'video':
+                    attachments_info.append(f"[VIDEO: {att.get('video', {}).get('title', 'no title')}]")
+                elif att_type == 'link':
+                    link_data = att.get('link', {})
+                    attachments_info.append(f"[LINK: {link_data.get('title')} - {link_data.get('description', '')}]")
+
+            full_content = f"{full_text}\n\n{' '.join(attachments_info)}"
+
+            items.append({
+                "title": full_text[:120] if full_text else "(no text)",
+                "link": f"https://vk.com/wall{item.get('owner_id')}_{item.get('id')}",
+                "source": f"VK user {item.get('owner_id')}",
+                "date": dt.datetime.fromtimestamp(item.get('date', 0)).isoformat(),
+                "snippet": full_text[:500],
+                "full_content": full_content[:8000],
+                "engine": "vk",
+                "likes": item.get('likes', {}).get('count', 0),
+            })
+    except Exception as e:
+        print(f"VK scraping failed: {e}")
+    return items
+
+
 def scrape_telegram(channels: List[str], keywords: List[str], top_k: int) -> List[Dict[str, Any]]:
     """Scrape Telegram (requires Telethon setup; placeholder)."""
     # Placeholder - requires Telegram API credentials and session setup
@@ -169,16 +324,20 @@ def scrape_telegram(channels: List[str], keywords: List[str], top_k: int) -> Lis
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run social media searches (X and YouTube; optional Telegram)")
+    parser = argparse.ArgumentParser(description="Run enhanced social media searches (X, YouTube, Reddit, VK, Telegram)")
     parser.add_argument("--queries", default="queries_social.yaml", help="Path to queries_social.yaml")
     parser.add_argument("--output-dir", default="search_results_social", help="Directory to write results")
     parser.add_argument("--year-min", type=int, default=2024, help="Lower bound year filter (used inside query strings)")
     parser.add_argument("--year-max", type=int, default=2025, help="Upper bound year filter (used inside query strings)")
     parser.add_argument("--top-k", type=int, default=20, help="Top results per platform per query")
-    parser.add_argument("--platforms", nargs="+", default=["x", "youtube"], choices=["x", "youtube", "telegram"], help="Which platforms to scrape")
+    parser.add_argument("--platforms", nargs="+", default=["x", "youtube"], choices=["x", "youtube", "reddit", "vk", "telegram"], help="Which platforms to scrape")
     parser.add_argument("--telegram", action="store_true", help="Enable Telegram scraping (requires credentials)")
     parser.add_argument("--tele-api-id", type=int, help="Telegram api_id")
     parser.add_argument("--tele-api-hash", type=str, help="Telegram api_hash")
+    parser.add_argument("--use-transcripts", action="store_true", default=True, help="Use YouTube transcripts (default: on)")
+    parser.add_argument("--no-transcripts", action="store_true", help="Disable YouTube transcripts")
+    parser.add_argument("--include-comments", action="store_true", default=True, help="Include Reddit top comments (default: on)")
+    parser.add_argument("--no-comments", action="store_true", help="Disable Reddit comments")
     args = parser.parse_args()
 
     queries_cfg = read_social_queries(args.queries)
@@ -205,10 +364,53 @@ def main() -> int:
         y_section = queries_cfg["youtube"]
         y_queries: List[str] = [str(q).strip() for q in (y_section.get("queries") or []) if str(q).strip()]
         for query in y_queries:
-            items = scrape_youtube(query=query, top_k=args.top_k)
+            # Use enhanced scraper if transcripts are enabled and available
+            if args.use_transcripts and not args.no_transcripts:
+                try:
+                    items = scrape_youtube_enhanced(query=query, top_k=args.top_k)
+                except ImportError:
+                    print("⚠️ youtube-transcript-api not available, falling back to basic scraper")
+                    items = scrape_youtube(query=query, top_k=args.top_k)
+            else:
+                items = scrape_youtube(query=query, top_k=args.top_k)
+
             md_path = write_markdown(out_dir, "youtube", query, args.year_min, args.year_max, items, "en")
             json_path = write_json(out_dir, "youtube", query, args.year_min, args.year_max, items, "en")
             index_entries.append({"category": "youtube", "query": query, "language": "en", "markdown": str(md_path), "json": str(json_path)})
+
+    # Reddit
+    if "reddit" in args.platforms and isinstance(queries_cfg.get("reddit"), dict):
+        r_section = queries_cfg["reddit"]
+        r_queries: List[str] = [str(q).strip() for q in (r_section.get("queries") or []) if str(q).strip()]
+        r_subreddits = [str(s).strip() for s in (r_section.get("subreddits") or []) if str(s).strip()]
+        for query in r_queries:
+            # Use enhanced scraper if comments are enabled and available
+            if args.include_comments and not args.no_comments:
+                try:
+                    items = scrape_reddit_enhanced(query=query, top_k=args.top_k, subreddits=r_subreddits or None)
+                except ImportError:
+                    print("⚠️ praw not available, falling back to basic Reddit scraper")
+                    # For now, fall back to no results since we don't have a basic Reddit scraper
+                    items = []
+            else:
+                # Basic Reddit scraper would go here if implemented
+                items = []
+
+            if items:  # Only write if we got results
+                md_path = write_markdown(out_dir, "reddit", query, args.year_min, args.year_max, items, "en")
+                json_path = write_json(out_dir, "reddit", query, args.year_min, args.year_max, items, "en")
+                index_entries.append({"category": "reddit", "query": query, "language": "en", "markdown": str(md_path), "json": str(json_path)})
+
+    # VK
+    if "vk" in args.platforms and isinstance(queries_cfg.get("vk"), dict):
+        v_section = queries_cfg["vk"]
+        v_queries: List[str] = [str(q).strip() for q in (v_section.get("queries") or []) if str(q).strip()]
+        for query in v_queries:
+            items = scrape_vk_enhanced(query=query, top_k=args.top_k)
+            if items:  # Only write if we got results
+                md_path = write_markdown(out_dir, "vk", query, args.year_min, args.year_max, items, "en")
+                json_path = write_json(out_dir, "vk", query, args.year_min, args.year_max, items, "en")
+                index_entries.append({"category": "vk", "query": query, "language": "en", "markdown": str(md_path), "json": str(json_path)})
 
     # Telegram (placeholder; only runs if explicitly enabled and creds present)
     if "telegram" in args.platforms and args.telegram and isinstance(queries_cfg.get("telegram"), dict):

@@ -1,3 +1,10 @@
+# Social Media Queries - Platform-specific adaptations of master queries.yaml
+# See queries.yaml for base concepts; these are optimized for social platforms
+#
+# Future enhancement: Could use a query generator that reads from master concepts
+# and applies platform-specific transformations (e.g., add date ranges for Twitter,
+# translate to Russian for VK, etc.)
+
 x:
   broad:
     - 'Moldova infrastructure since:2024-01-01 until:2025-12-31 lang:en'
@@ -14,6 +21,22 @@ youtube:
     - 'Moldova energy crisis 2024'
   specific:
     - 'Moldelectrica 2024'
+
+reddit:
+  queries:
+    - 'Moldova infrastructure'
+    - 'Moldelectrica'
+    - 'Moldova energy'
+  subreddits:
+    - 'geopolitics'
+    - 'europe'
+    - 'energy'
+
+vk:
+  queries:
+    - 'Молдова инфраструктура'  # Moldova infrastructure in Russian (VK is Russian-heavy)
+    - 'Moldelectrica'
+    - 'Молдова энергетика'      # Moldova energy in Russian
 
 telegram:
   channels:

@@ -1,6 +1,14 @@
 x:
   queries:
-    - 'Moldelectrica 2024'
+    - 'Moldova'
 youtube:
   queries:
-    - 'Moldelectrica 2024'
+    - 'Moldova'
+reddit:
+  subreddits:
+    - 'worldnews'
+  queries:
+    - 'Moldova'
+vk:
+  queries:
+    - 'Moldova'

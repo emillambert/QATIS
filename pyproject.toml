@@ -36,6 +36,12 @@ ui = [
   "streamlit>=1.37",
   "pandas>=2.0"
 ]
+enhanced-social = [
+  "youtube-transcript-api>=0.6.2",
+  "praw>=7.7.1",
+  "vk-api>=11.9.9",
+  "instaloader>=4.11"
+]
 
 [project.scripts]
 qatis = "qatis.cli:app"

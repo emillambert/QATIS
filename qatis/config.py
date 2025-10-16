@@ -15,6 +15,9 @@ PROMPTS_DIR = CONFIG_DIR / "prompts"
 class Keys:
     openai_api_key: Optional[str] = None
     scraperapi_api_key: Optional[str] = None
+    reddit_client_id: Optional[str] = None
+    reddit_client_secret: Optional[str] = None
+    vk_token: Optional[str] = None
 
 
 def ensure_dirs():
@@ -44,6 +47,9 @@ def load_keys() -> Keys:
     return Keys(
         openai_api_key=(pick("OPENAI_API_KEY") or None),
         scraperapi_api_key=(pick("SCRAPERAPI_API_KEY") or None),
+        reddit_client_id=(pick("REDDIT_CLIENT_ID") or None),
+        reddit_client_secret=(pick("REDDIT_CLIENT_SECRET") or None),
+        vk_token=(pick("VK_TOKEN") or None),
     )
 
 
@@ -58,6 +64,12 @@ def save_keys(keys: Keys):
         existing["OPENAI_API_KEY"] = keys.openai_api_key
     if keys.scraperapi_api_key is not None:
         existing["SCRAPERAPI_API_KEY"] = keys.scraperapi_api_key
+    if keys.reddit_client_id is not None:
+        existing["REDDIT_CLIENT_ID"] = keys.reddit_client_id
+    if keys.reddit_client_secret is not None:
+        existing["REDDIT_CLIENT_SECRET"] = keys.reddit_client_secret
+    if keys.vk_token is not None:
+        existing["VK_TOKEN"] = keys.vk_token
 
     # Write
     lines = [f"{k}={v}" for k, v in existing.items() if v]

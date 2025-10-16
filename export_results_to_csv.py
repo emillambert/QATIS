@@ -54,6 +54,7 @@ def main() -> int:
                         "pdf_link": item.get("pdf_link"),
                         "date": item.get("date"),
                         "snippet": item.get("snippet"),
+                        "full_content": item.get("full_content"),  # NEW: For enhanced social scrapers
                         "position": item.get("position"),
                         "year_min": year_min,
                         "year_max": year_max,
@@ -107,6 +108,10 @@ def main() -> int:
                 current_snip = bucket.get("snippet") or ""
                 new_snip = r.get("snippet") or ""
                 bucket["snippet"] = new_snip if len(new_snip) > len(current_snip) else current_snip
+                # Prefer the longest full_content for richness (NEW)
+                current_full = bucket.get("full_content") or ""
+                new_full = r.get("full_content") or ""
+                bucket["full_content"] = new_full if len(new_full) > len(current_full) else current_full
                 # Keep the smallest position seen
                 try:
                     current_pos = int(bucket.get("position")) if bucket.get("position") is not None else None
@@ -155,6 +160,7 @@ def main() -> int:
                     "pdf_link": b.get("pdf_link"),
                     "date": b.get("date"),
                     "snippet": b.get("snippet"),
+                    "full_content": b.get("full_content"),  # NEW: Enhanced content for social media
                     "position": b.get("position"),
                     "year_min": b.get("year_min"),
                     "year_max": b.get("year_max"),
@@ -175,6 +181,7 @@ def main() -> int:
         "pdf_link",
         "date",
         "snippet",
+        "full_content",  # NEW: Enhanced content for social media
         "position",
         "year_min",
         "year_max",

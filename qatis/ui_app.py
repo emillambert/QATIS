@@ -1,4 +1,5 @@
 import io
+import os
 import pathlib
 import zipfile
 import time
@@ -31,10 +32,23 @@ def main():
         keys = load_keys()
         openai = st.text_input("OPENAI_API_KEY", value=keys.openai_api_key or "", type="password")
         scraperapi = st.text_input("SCRAPERAPI_API_KEY", value=keys.scraperapi_api_key or "", type="password", help="Get 5000 free at scraperapi.com")
-        if st.button("Save Keys"):
-            save_keys(Keys(openai, scraperapi))
-            st.success("Saved to ~/.qatis/.env")
         
+        st.divider()
+        st.subheader("Enhanced Social Scrapers")
+        reddit_client_id = st.text_input("Reddit Client ID", value=keys.reddit_client_id or "", type="password", help="Get from https://www.reddit.com/prefs/apps")
+        reddit_client_secret = st.text_input("Reddit Client Secret", value=keys.reddit_client_secret or "", type="password")
+        vk_token = st.text_input("VK Access Token (optional)", value=keys.vk_token or "", type="password", help="Optional: improves VK search results")
+        
+        if st.button("Save Keys"):
+            save_keys(Keys(
+                openai_api_key=openai,
+                scraperapi_api_key=scraperapi,
+                reddit_client_id=reddit_client_id,
+                reddit_client_secret=reddit_client_secret,
+                vk_token=vk_token
+            ))
+            st.success("Saved to ~/.qatis/.env")
+
         st.divider()
         st.subheader("Analysis Prompt")
         # Load current prompt (from custom or default)
@@ -56,32 +70,155 @@ def main():
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Web/Scholar Queries")
+        with st.expander("ℹ️ Query Format Guide", expanded=False):
+            st.markdown("""
+**Format:** Category-based YAML with quoted strings
+
+```yaml
+category_name:
+  - 'simple query'
+  - 'phrase with "quotes" inside'
+  - '"exact phrase" OR keyword'
+  - 'site:example.com keyword'
+  - 'filetype:pdf keyword'
+  - '"keyword" 2024..2025'
+```
+
+**Tips:**
+- Wrap each query in single quotes `'...'`
+- Use double quotes inside for exact phrases
+- Boolean: `OR`, `AND`, `NOT`
+- Date range: `2024..2025`
+- Site filter: `site:europa.eu`
+- File type: `filetype:pdf`
+
+**Examples:**
+```yaml
+areas:
+  - 'Moldova infrastructure'
+  - '"power grid" Moldova'
+structures:
+  - 'Moldelectrica ownership'
+  - '"Energy Community" Moldova filetype:pdf'
+```
+            """)
         # Default: short and properly formatted
         default_queries = (
-            "areas:\n"
-            "  - 'Moldova infrastructure 2024'\n"
-            "  - 'Moldelectrica energy grid'\n"
+            "test:\n"
+            "  - 'Moldova'\n"
         )
         queries_text = st.text_area("Queries (YAML)", height=200, value=default_queries, key="queries_yaml_input")
-        
+
         st.markdown("")
         st.subheader("Social Queries")
-        social_platforms = st.multiselect("Social platforms (optional)", ["x", "youtube"], default=[])
+        with st.expander("ℹ️ Social Query Format Guide", expanded=False):
+            st.markdown("""
+**Format:** Platform-specific YAML structure
+
+```yaml
+x:
+  queries:
+    - 'keyword since:2024-01-01 until:2025-12-31'
+    - 'from:username keyword'
+    - '#hashtag lang:en'
+
+youtube:
+  queries:
+    - 'keyword 2024'
+    - 'channel_name topic'
+
+reddit:
+  subreddits:
+    - 'worldnews'
+    - 'europe'
+  queries:
+    - 'Moldova'
+    - 'infrastructure'
+
+vk:
+  queries:
+    - 'Moldova'
+    - 'Молдова'  # Cyrillic works
+```
+
+**X/Twitter syntax:**
+- Time: `since:2024-01-01 until:2025-12-31`
+- User: `from:username` or `to:username`
+- Language: `lang:en`, `lang:ru`
+- Hashtag: `#keyword`
+
+**YouTube syntax:**
+- Simple keywords work best
+- Year helps: `Moldova 2024`
+- Channel: `"Channel Name" topic`
+
+**Reddit:**
+- Specify subreddits to search
+- Queries searched across those subs
+- Requires Client ID/Secret (see sidebar)
+
+**VK:**
+- Supports Cyrillic and Latin
+- Optional token improves results
+- Searches public posts/groups
+            """)
         default_social = (
             "x:\n"
             "  queries:\n"
-            "    - 'Moldelectrica 2024'\n"
+            "    - 'Moldova'\n"
             "youtube:\n"
             "  queries:\n"
-            "    - 'Moldelectrica 2024'\n"
+            "    - 'Moldova'\n"
+            "reddit:\n"
+            "  subreddits:\n"
+            "    - 'worldnews'\n"
+            "  queries:\n"
+            "    - 'Moldova'\n"
+            "vk:\n"
+            "  queries:\n"
+            "    - 'Moldova'\n"
         )
         social_queries_text = st.text_area("Social Queries (YAML)", height=140, value=default_social, help="Used if social platforms are selected")
+
+        # Social enhancement options
+        col3, col4 = st.columns(2)
+        with col3:
+            use_transcripts = st.checkbox("Use YouTube transcripts", value=True, help="Enable YouTube transcript extraction (requires youtube-transcript-api)")
+        with col4:
+            include_comments = st.checkbox("Include Reddit top comments", value=True, help="Include Reddit post comments in analysis (requires praw)")
     with col2:
         st.subheader("Search Settings")
         year_min = st.number_input("Year min", value=2024)
         year_max = st.number_input("Year max", value=2025)
         top_k = st.number_input("Results per query (per engine)", value=20)
-        engines = st.multiselect("Engines", ["web", "scholar"], default=["web", "scholar"])
+
+        # Combined engines selection (web/academic + social platforms)
+        all_engines = ["web", "scholar", "x", "youtube", "reddit", "vk"]
+        engines = st.multiselect("Engines & Platforms", all_engines, default=["web", "scholar"], help="Select web/academic engines and social platforms to search")
+        
+        # Show dependency hints for social platforms
+        selected_social = [e for e in engines if e in ["x", "youtube", "reddit", "vk"]]
+        if selected_social:
+            with st.expander("📦 Social Platform Dependencies", expanded=False):
+                st.markdown("""
+**Required packages per platform:**
+- **X/Twitter**: `snscrape` (often blocked by Twitter)
+- **YouTube**: `yt-dlp` + `youtube-transcript-api` (optional, for transcripts)
+- **Reddit**: `praw` + credentials (see sidebar)
+- **VK**: `vk-api` (token optional but helpful)
+
+**Install missing packages:**
+```bash
+pip install -r requirements.txt
+```
+
+If scrapers fail, check stderr output after collection.
+                """)
+
+        # Separate web and social engines for processing
+        web_engines = [e for e in engines if e in ["web", "scholar"]]
+        social_platforms = [e for e in engines if e in ["x", "youtube", "reddit", "vk"]]
+
         lang_choice = st.selectbox("Language bias", ["English only", "Russian only", "Romanian only", "All (en+ru+ro)"], index=0)
         include_ru = lang_choice in ["Russian only", "All (en+ru+ro)"]
         include_ro = lang_choice in ["Romanian only", "All (en+ru+ro)"]
@@ -110,7 +247,7 @@ def main():
             lang_variants += 1
         if include_ro:
             lang_variants += 1
-        total_web_scholar = total_queries * len(engines) * lang_variants
+        total_web_scholar = total_queries * len(web_engines) * lang_variants
         
         # Validate social YAML if needed
         total_social = 0
@@ -142,7 +279,7 @@ def main():
             "--year-min", str(int(year_min)),
             "--year-max", str(int(year_max)),
             "--top-k", str(int(top_k)),
-            "--engines", *engines,
+            "--engines", *web_engines,
         ]
         if include_ru:
             args.append("--include-ru")
@@ -151,38 +288,47 @@ def main():
         
         prog = st.progress(0, text="Starting collection...")
         start_time = time.time()
-        p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
-        while p.poll() is None:
-            elapsed = time.time() - start_time
-            # Estimate: 2 seconds per query
+        # Only run web/scholar if engines are selected
+        if web_engines:
+            p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            
+            while p.poll() is None:
+                elapsed = time.time() - start_time
+                # Estimate: 2 seconds per query
+                if total_tasks > 0:
+                    estimated_web = total_web_scholar * 2
+                    progress_fraction = min(elapsed / estimated_web, 1.0) if estimated_web > 0 else 0
+                    # Scale web/scholar to its share of total tasks
+                    progress_pct = int((total_web_scholar / total_tasks) * progress_fraction * 100)
+                    remaining = max(0, int(estimated_web - elapsed))
+                    prog.progress(min(progress_pct / 100, 0.99), text=f"Collecting web/scholar results... (~{remaining}s remaining)")
+                else:
+                    prog.progress(0, text="Collecting web/scholar results...")
+                time.sleep(0.5)
+            
+            stdout, stderr = p.communicate()
+            # Web/scholar phase complete
             if total_tasks > 0:
-                estimated_total = total_tasks * 2
-                progress_pct = min(int((elapsed / estimated_total) * 50), 49)  # Cap at 49% for web/scholar phase
-                remaining = max(0, int(estimated_total - elapsed))
-                prog.progress(progress_pct, text=f"Collecting web/scholar results... (~{remaining}s remaining)")
+                web_share = total_web_scholar / total_tasks
+                progress_pct = int(web_share * 100)
             else:
-                prog.progress(0, text="Collecting web/scholar results...")
-            time.sleep(0.5)
-        
-        stdout, stderr = p.communicate()
-        completed_tasks = total_web_scholar
-        if total_tasks > 0:
-            progress_pct = int((completed_tasks / total_tasks) * 100)
+                progress_pct = 100
+            prog.progress(min(progress_pct / 100, 0.99), text="Web/scholar collection finished")
+            st.code((stdout or "") + "\n" + (stderr or ""))
+            
+            # Find most recent dir
+            subs = sorted([p for p in pathlib.Path(out_root).iterdir() if p.is_dir()], reverse=True)
+            if subs:
+                results_dir = subs[0]
+                st.session_state["results_dir"] = str(results_dir)
+                st.success(f"Results dir: {results_dir}")
         else:
-            progress_pct = 50
-        prog.progress(progress_pct, text="Web/scholar collection finished")
-        st.code((stdout or "") + "\n" + (stderr or ""))
-        
-        # Find most recent dir
-        subs = sorted([p for p in pathlib.Path(out_root).iterdir() if p.is_dir()], reverse=True)
-        if subs:
-            results_dir = subs[0]
-            st.session_state["results_dir"] = str(results_dir)
-            st.success(f"Results dir: {results_dir}")
+            # No web engines, start at 0%
+            progress_pct = 0
 
         # Social collection if selected
-        if social_platforms:
+        if social_platforms and social_queries_text.strip():
             s_out_root = pathlib.Path("search_results_social")
             s_q_path = pathlib.Path("queries_social_ui.yaml")
             s_q_path.write_text(social_queries_text or "", encoding="utf-8")
@@ -195,22 +341,74 @@ def main():
                 "--top-k", str(int(top_k)),
                 "--platforms", *social_platforms,
             ]
+
+            # Add enhanced social scraping flags
+            if use_transcripts:
+                s_args.append("--use-transcripts")
+            else:
+                s_args.append("--no-transcripts")
+
+            if include_comments:
+                s_args.append("--include-comments")
+            else:
+                s_args.append("--no-comments")
             social_start = time.time()
-            sp = subprocess.Popen(s_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            # Pass API keys as environment variables
+            social_env = os.environ.copy()
+            if reddit_client_id:
+                social_env["REDDIT_CLIENT_ID"] = reddit_client_id
+            if reddit_client_secret:
+                social_env["REDDIT_CLIENT_SECRET"] = reddit_client_secret
+            if vk_token:
+                social_env["VK_TOKEN"] = vk_token
+
+            sp = subprocess.Popen(s_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=social_env)
+            
+            # Add timeout to prevent infinite loops (5 minutes max)
+            max_wait = 300
             while sp.poll() is None:
                 s_elapsed = time.time() - social_start
-                if total_tasks > 0:
+                
+                # Timeout check
+                if s_elapsed > max_wait:
+                    sp.terminate()
+                    st.warning(f"Social collection timed out after {max_wait}s")
+                    break
+                
+                if total_tasks > 0 and total_social > 0:
                     s_estimated = total_social * 2
-                    s_pct_phase = min(int((s_elapsed / s_estimated) * 50), 49) if s_estimated > 0 else 0
-                    current_pct = progress_pct + s_pct_phase
+                    s_progress_fraction = min(s_elapsed / s_estimated, 1.0) if s_estimated > 0 else 0
+                    # Add social progress to web progress
+                    social_share = total_social / total_tasks
+                    current_pct = progress_pct + int(social_share * s_progress_fraction * 100)
                     s_remaining = max(0, int(s_estimated - s_elapsed))
-                    prog.progress(min(current_pct, 99), text=f"Collecting social results... (~{s_remaining}s remaining)")
+                    prog.progress(min(current_pct / 100, 0.99), text=f"Collecting social results... (~{s_remaining}s remaining)")
                 else:
-                    prog.progress(50, text="Collecting social results...")
+                    prog.progress(0.5, text="Collecting social results...")
                 time.sleep(0.5)
-            s_stdout, s_stderr = sp.communicate()
-            prog.progress(100, text="Collection finished")
-            st.code((s_stdout or "") + "\n" + (s_stderr or ""))
+            
+            s_stdout, s_stderr = sp.communicate(timeout=5)  # 5s timeout for cleanup
+            prog.progress(1.0, text="Collection finished")
+            
+            # Show both stdout and stderr (stderr contains scraper errors)
+            combined_output = ""
+            if s_stdout:
+                combined_output += s_stdout
+            if s_stderr:
+                combined_output += "\n" + s_stderr
+            st.code(combined_output or "(no output)")
+
+            # Find most recent social dir
+            s_subs = sorted([p for p in pathlib.Path(s_out_root).iterdir() if p.is_dir()], reverse=True)
+            if s_subs:
+                social_results_dir = s_subs[0]
+                # Check if directory has actual results
+                index_file = pathlib.Path(social_results_dir) / "index.json"
+                if index_file.exists():
+                    st.session_state["social_results_dir"] = str(social_results_dir)
+                    st.success(f"Social results dir: {social_results_dir}")
+                else:
+                    st.warning(f"Social collection completed but no results were saved. Check stderr output above for errors (e.g., missing dependencies, API blocks).")
 
     st.header("2) Export & Dedupe")
     if results_dir:
@@ -237,6 +435,58 @@ def main():
                     __import__("pandas").read_csv(out_csv).head(50)
                 )
 
+    # Export social CSV if we have a social results directory
+    social_results_dir = st.session_state.get("social_results_dir")
+    if social_results_dir:
+        col_soc_a, col_soc_b = st.columns(2)
+        with col_soc_a:
+            if st.button("Export Social CSV"):
+                s_args = [
+                    sys.executable, "export_results_to_csv.py",
+                    "--results-dir", str(social_results_dir),
+                    "--output", "social_results.csv",
+                    "--dedupe",
+                ]
+                s_prog = st.progress(0, text="Exporting social results...")
+                sval = 0
+                sp2 = subprocess.Popen(s_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                while sp2.poll() is None:
+                    sval = (sval + 5) % 100
+                    s_prog.progress(sval, text="Exporting social results...")
+                    time.sleep(0.2)
+                s_stdout2, s_stderr2 = sp2.communicate()
+                s_prog.progress(100, text="Social export finished")
+                st.code((s_stdout2 or "") + "\n" + (s_stderr2 or ""))
+                s_out_csv = pathlib.Path(social_results_dir) / "social_results.csv"
+                if s_out_csv.exists():
+                    st.dataframe(__import__("pandas").read_csv(s_out_csv).head(50))
+
+        with col_soc_b:
+            # Merge web+social into the web results dir for downstream analysis/download
+            if st.button("Merge Web + Social CSV") and results_dir:
+                merged_out = pathlib.Path(results_dir) / "merged_results_with_social.csv"
+                m_args = [
+                    sys.executable, "merge_csv.py",
+                    "--input-a", str(pathlib.Path(results_dir) / "results_deduped.csv"),
+                    "--input-b", str(pathlib.Path(social_results_dir) / "social_results.csv"),
+                    "--output", str(merged_out),
+                    "--dedupe-on", "link",
+                    "--prefer", "first",
+                ]
+                m_prog = st.progress(0, text="Merging web + social...")
+                mval = 0
+                mp = subprocess.Popen(m_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                while mp.poll() is None:
+                    mval = (mval + 5) % 100
+                    m_prog.progress(mval, text="Merging web + social...")
+                    time.sleep(0.2)
+                m_stdout, m_stderr = mp.communicate()
+                m_prog.progress(100, text="Merge finished")
+                st.code((m_stdout or "") + "\n" + (m_stderr or ""))
+                if merged_out.exists():
+                    st.success(f"Merged CSV created: {merged_out}")
+                    st.dataframe(__import__("pandas").read_csv(merged_out).head(50))
+
     st.header("3) Analyze")
     if results_dir:
         model = st.text_input("Model", value="gpt-4o-mini")
@@ -244,14 +494,30 @@ def main():
         limit = st.number_input("Limit (0=all)", value=0)
         no_fetch = st.checkbox("No fetch (skip article text)")
         no_cache = st.checkbox("No cache")
+
+        # Content analysis controls
+        col5, col6 = st.columns(2)
+        with col5:
+            max_content_chars = st.number_input("Max content chars", value=8000, help="Truncate content beyond this length to control costs")
+        with col6:
+            content_mode = st.selectbox("Content mode", ["auto", "full", "min"], index=0, help="auto: prefer full_content, full: always full, min: prefer snippet")
+
+        # Allow selecting which CSV to analyze
+        rd_path = pathlib.Path(results_dir)
+        available_inputs = ["results_deduped.csv"]
+        if (rd_path / "merged_results_with_social.csv").exists():
+            available_inputs.insert(0, "merged_results_with_social.csv")
+        input_choice = st.selectbox("Input CSV", available_inputs, index=0)
+
         run_analyze = st.button("Run Analysis")
         if run_analyze:
             args = [
                 sys.executable, "-u", "analyze_results.py",  # -u for unbuffered output
                 "--results-dir", str(results_dir),
-                "--input", "results_deduped.csv",
+                "--input", input_choice,
                 "--model", model,
                 "--batch-size", str(int(batch_size)),
+                "--max-content-chars", str(int(max_content_chars)),
             ]
             if int(limit) > 0:
                 args += ["--limit", str(int(limit))]
@@ -263,7 +529,6 @@ def main():
             a_prog = st.progress(0, text="Starting analysis...")
             status_placeholder = st.empty()
             
-            import subprocess
             ap = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
             
             output_lines = []
