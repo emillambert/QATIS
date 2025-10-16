@@ -1,2 +1,35 @@
-test:
-  - 'Moldova'
+areas:
+  - '("Moldova" AND ("infrastructure" OR "critical infrastructure")) AND ("energy" OR "transport" OR "telecommunications" OR "cyber" OR "water") AND (2024..2025)'
+  - '("Moldova" AND "infrastructure") AND ("Transnistria" OR "breakaway region" OR "separatist")'
+  - '("Moldova" AND "infrastructure") AND ("EU integration" OR "TEN-T" OR "ENTSO-E")'
+  - '"Moldova infrastructure map" OR "Moldova infrastructure overview" 2024..2025'
+
+structures:
+  - '("Moldova" AND ("Moldelectrica" OR "Moldtelecom" OR "Ministry of Infrastructure")) AND ("ownership" OR "management" OR "control")'
+  - '("Moldova" AND ("Energy Community" OR "EU4Energy" OR "World Bank")) AND ("report" OR "restructuring" OR "modernization")'
+  - '("Gazprom" OR "Inter RAO") AND "Moldova" AND ("infrastructure" OR "energy")'
+  - '"Moldova infrastructure governance" OR "infrastructure regulation" 2024..2025'
+
+capabilities:
+  - '("Moldova" AND ("energy capacity" OR "electricity generation" OR "distribution network")) AND (2024..2025)'
+  - '("Moldova" AND ("roads" OR "railways" OR "logistics" OR "transport capacity")) AND (2024..2025)'
+  - '("Moldova" AND ("cyber resilience" OR "infrastructure resilience")) AND ("vulnerability" OR "readiness")'
+  - '("Moldova" AND ("energy imports" OR "dependence on Russia" OR "Transnistria power")) AND (2024..2025)'
+
+organisations:
+  - '("Moldova" AND ("Ministry of Infrastructure" OR "Energy Community" OR "EU4Energy" OR "ENISA"))'
+  - '("Moldova" AND ("Gazprom" OR "Inter RAO" OR "USAID" OR "World Bank")) AND ("project" OR "funding" OR "partnership")'
+  - '("Moldova" AND ("foreign investment" OR "international aid")) AND ("infrastructure")'
+  - '("Moldova" AND "infrastructure") AND ("Council of Europe" OR "European Commission" OR "Energy Community")'
+
+people:
+  - '("Moldova" AND ("engineers" OR "technicians" OR "ICT workforce")) AND (2024..2025)'
+  - '("Moldova" AND "brain drain") AND ("technical workforce" OR "infrastructure sector")'
+  - '("education" AND "Moldova") AND ("engineering" OR "STEM" OR "infrastructure training")'
+  - '"Moldova skilled labor energy infrastructure" OR "Moldova workforce shortage" 2024..2025'
+
+events:
+  - '("Moldova" AND ("cyberattack" OR "hack" OR "malware" OR "ransomware")) AND ("infrastructure" OR "government") AND (2024..2025)'
+  - '("Moldova" AND ("power outage" OR "blackout" OR "energy crisis")) AND (2024..2025)'
+  - '("Moldova" AND ("bridge collapse" OR "Dniester bridge" OR "transport disruption")) AND (2024..2025)'
+  - '("Moldova" AND ("sabotage" OR "hybrid attack" OR "incident" OR "infrastructure damage")) AND (2024..2025)'

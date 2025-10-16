@@ -22,7 +22,6 @@ except Exception:
 from openai import OpenAI
 from slugify import slugify
 from tenacity import retry, stop_after_attempt, wait_exponential_jitter
-from tqdm import tqdm
 
 try:
     import trafilatura
@@ -374,9 +373,13 @@ def main() -> int:
     processed_count = 0
 
     def flush_batch():
-        nonlocal batch, enriched_rows
+        nonlocal batch, enriched_rows, processed_count
         if not batch:
             return
+        batch_size = len(batch)
+        print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%) - Analyzing batch of {batch_size}...")
+        sys.stdout.flush()
+        
         items_payload = [p for (_r, p) in batch]
         results = call_llm(client, args.model, system_prompt, items_payload)
         if len(results) != len(batch):
@@ -440,16 +443,34 @@ def main() -> int:
             # update cache
             if enriched.get("url"):
                 cache[enriched["url"]] = enriched
+        
+        processed_count += batch_size
+        print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%)")
+        sys.stdout.flush()
         batch = []
 
-    for row in tqdm(rows, desc="Analyzing"):
+    # Initial progress message
+    print(f"Progress: 0/{total_rows} (0%) - Starting analysis...")
+    sys.stdout.flush()
+    
+    for idx, row in enumerate(rows, 1):
         url = normalize_url(row.link)
         cached = cache.get(url or "") if url else None
         if cached and not args.no_cache:
             # Use cached and continue
             enriched_rows.append(cached)
             processed_count += 1
+            # Report progress every 10 cached items
+            if processed_count % 10 == 0:
+                print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%) - Using cache...")
+                sys.stdout.flush()
             continue
+        
+        # Report progress during fetching (every 5 items)
+        if idx % 5 == 0:
+            print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%) - Fetching content...")
+            sys.stdout.flush()
+        
         content = None
         if not args.no_fetch and url:
             content = fetch_content(url)
@@ -457,8 +478,6 @@ def main() -> int:
         batch.append((row, payload))
         if len(batch) >= args.batch_size:
             flush_batch()
-            processed_count += len(batch)
-            print(f"Progress: {processed_count}/{total_rows} ({int(100*processed_count/total_rows)}%)")
             # Gentle pacing
             time.sleep(0.5)
 

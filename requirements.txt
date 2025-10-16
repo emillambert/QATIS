@@ -18,4 +18,5 @@ praw==7.7.1
 vk-api==11.9.9
 telethon==1.36.0
 instaloader==4.11
+twscrape==0.14.0
 

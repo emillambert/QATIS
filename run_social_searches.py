@@ -90,19 +90,11 @@ def write_json(
     return out_path
 
 
-def scrape_x(query: str, top_k: int) -> List[Dict[str, Any]]:
-    """Scrape Twitter/X using snscrape (free).
-    
-    Note: Twitter often blocks snscrape. If this fails, results will be empty.
-    """
+def scrape_x_snscrape(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Scrape Twitter/X using snscrape (free). Often blocked by X."""
     items: List[Dict[str, Any]] = []
     try:
         import snscrape.modules.twitter as sntwitter
-    except Exception as e:
-        print(f"Could not import snscrape: {e}")
-        return items
-    
-    try:
         for i, t in enumerate(sntwitter.TwitterSearchScraper(query).get_items()):
             if i >= top_k:
                 break
@@ -125,10 +117,116 @@ def scrape_x(query: str, top_k: int) -> List[Dict[str, Any]]:
             except Exception:
                 continue
     except Exception as e:
-        print(f"Twitter scraping blocked or failed: {e}")
-        print("Note: Twitter/X often blocks automated scraping. Consider using YouTube only.")
-    
+        print(f"snscrape unavailable or failed: {e}")
     return items
+
+
+def scrape_x_twscrape(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Scrape Twitter/X using twscrape (requires logged-in session)."""
+    items: List[Dict[str, Any]] = []
+    try:
+        from twscrape import API
+        import asyncio
+        import os as _os
+
+        session_dir = _os.getenv("X_SESSION_DIR") or _os.path.expanduser("~/.twscrape")
+        api = API(path=session_dir)
+
+        async def run():
+            try:
+                await api.pool.login_all()
+            except Exception:
+                # proceed even if already logged in
+                pass
+            count = 0
+            async for t in api.search(query):
+                if count >= top_k:
+                    break
+                try:
+                    content = (t.rawContent or "")
+                    username = getattr(t.user, "username", None)
+                    items.append(
+                        {
+                            "title": content[:120] or "(no title)",
+                            "link": f"https://x.com/{username}/status/{t.id}" if username else None,
+                            "source": username,
+                            "date": t.date.isoformat() if getattr(t, "date", None) else None,
+                            "snippet": content[:500],
+                            "engine": "x",
+                        }
+                    )
+                    count += 1
+                except Exception:
+                    continue
+
+        asyncio.run(run())
+    except Exception as e:
+        print(f"twscrape failed: {e}")
+    return items
+
+
+def scrape_x_nitter(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Scrape Twitter/X via public Nitter mirrors (best-effort)."""
+    items: List[Dict[str, Any]] = []
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+        import urllib.parse
+
+        nitter_hosts = [
+            "https://nitter.net",
+            "https://nitter.poast.org",
+            "https://nitter.lacontrevoie.fr",
+        ]
+        for host in nitter_hosts:
+            try:
+                url = f"{host}/search?f=tweets&q={urllib.parse.quote_plus(query)}"
+                r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+                if r.status_code != 200:
+                    continue
+                soup = BeautifulSoup(r.text, "html.parser")
+                timeline_items = soup.select("div.timeline > div.timeline-item")
+                for art in timeline_items[:top_k]:
+                    try:
+                        user_el = art.select_one("a.username")
+                        user = user_el.get_text(strip=True) if user_el else None
+                        content_el = art.select_one("div.tweet-content")
+                        content = content_el.get_text(" ", strip=True) if content_el else ""
+                        link_el = art.select_one("a[href*='/status/']")
+                        nlink = link_el.get("href") if link_el else None
+                        x_link = f"https://x.com{nlink}" if nlink else None
+                        date_el = art.select_one("span.tweet-date > a")
+                        date = date_el.get("title") if date_el else None
+                        items.append(
+                            {
+                                "title": content[:120] or "(no title)",
+                                "link": x_link,
+                                "source": (user or "").lstrip("@") or None,
+                                "date": date,
+                                "snippet": content[:500],
+                                "engine": "x",
+                            }
+                        )
+                    except Exception:
+                        continue
+                if items:
+                    break
+            except Exception:
+                continue
+    except Exception as e:
+        print(f"Nitter scraping failed: {e}")
+    return items
+
+
+def scrape_x(query: str, top_k: int) -> List[Dict[str, Any]]:
+    """Best-effort X scraping: snscrape → twscrape → Nitter."""
+    items = scrape_x_snscrape(query, top_k)
+    if items:
+        return items
+    items = scrape_x_twscrape(query, top_k)
+    if items:
+        return items
+    return scrape_x_nitter(query, top_k)
 
 
 def scrape_youtube_enhanced(query: str, top_k: int) -> List[Dict[str, Any]]:
@@ -270,14 +368,17 @@ def scrape_vk_enhanced(query: str, top_k: int) -> List[Dict[str, Any]]:
     items = []
     try:
         import vk_api
+        import os as _os
 
-        vk = vk_api.VkApi()
+        token = _os.getenv("VK_TOKEN")
+        if not token:
+            print("VK scraping requires VK_TOKEN (user access token with newsfeed scope).")
+            return items
 
-        results = vk.method('newsfeed.search', {
-            'q': query,
-            'count': min(top_k, 200),  # VK allows up to 200
-            'extended': 1  # Get extended info
-        })
+        vk_session = vk_api.VkApi(token=token)
+        api = vk_session.get_api()
+
+        results = api.newsfeed.search(q=query, count=min(top_k, 200))
 
         for item in results.get('items', [])[:top_k]:
             full_text = item.get('text', '')

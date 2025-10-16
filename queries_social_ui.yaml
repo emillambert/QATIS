@@ -1,14 +1,32 @@
 x:
   queries:
-    - 'Moldova'
+    - '("Moldova infrastructure" OR "Moldova energy") since:2024-01-01 until:2025-12-31 lang:en'
+    - '("Moldova cyberattack" OR "Moldova blackout") since:2024-01-01 until:2025-12-31 lang:en'
+    - '("Transnistria power plant" OR "Cuciurgan GRES") since:2024-01-01 until:2025-12-31 lang:en'
+    - '("TEN-T Moldova" OR "EU4Energy Moldova") since:2024-01-01 until:2025-12-31 lang:en'
+
 youtube:
   queries:
-    - 'Moldova'
+    - '"Moldova infrastructure 2024"'
+    - '"Moldova energy crisis 2024"'
+    - '"Transnistria Cuciurgan power plant report"'
+    - '"Moldova cyber security 2025"'
+    - '"Moldova railway modernization"'
+
 reddit:
   subreddits:
     - 'worldnews'
+    - 'europe'
+    - 'geopolitics'
   queries:
-    - 'Moldova'
+    - 'Moldova infrastructure'
+    - 'Moldova energy'
+    - 'Moldova cyberattack'
+    - 'Transnistria power'
+
 vk:
   queries:
-    - 'Moldova'
+    - 'Молдова инфраструктура'
+    - 'Молдова энергетика'
+    - 'Приднестровье энергетика'
+    - 'Moldova infrastructure'

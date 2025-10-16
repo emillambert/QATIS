@@ -38,6 +38,10 @@ def main():
         reddit_client_id = st.text_input("Reddit Client ID", value=keys.reddit_client_id or "", type="password", help="Get from https://www.reddit.com/prefs/apps")
         reddit_client_secret = st.text_input("Reddit Client Secret", value=keys.reddit_client_secret or "", type="password")
         vk_token = st.text_input("VK Access Token (optional)", value=keys.vk_token or "", type="password", help="Optional: improves VK search results")
+
+        # X/Twitter advanced options
+        st.markdown("X/Twitter (optional)")
+        x_session_dir = st.text_input("X Session Dir (twscrape)", value=str(pathlib.Path.home() / ".twscrape"))
         
         if st.button("Save Keys"):
             save_keys(Keys(
@@ -362,6 +366,10 @@ If scrapers fail, check stderr output after collection.
             if vk_token:
                 social_env["VK_TOKEN"] = vk_token
 
+            # Provide optional X session dir for twscrape fallback
+            if x_session_dir:
+                social_env["X_SESSION_DIR"] = x_session_dir
+
             sp = subprocess.Popen(s_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=social_env)
             
             # Add timeout to prevent infinite loops (5 minutes max)
@@ -398,6 +406,31 @@ If scrapers fail, check stderr output after collection.
                 combined_output += "\n" + s_stderr
             st.code(combined_output or "(no output)")
 
+            # Analyze output for common failures and provide actionable guidance
+            platform_issues = []
+            if "x" in social_platforms and s_stderr:
+                if "Twitter" in s_stderr or "snscrape" in s_stderr or "blocked" in s_stderr.lower():
+                    platform_issues.append("**X/Twitter**: ❌ Blocked or failed. Twitter actively blocks automated scraping. This platform is unreliable - consider removing it from your selection.")
+            
+            if "vk" in social_platforms and s_stderr:
+                if "VK" in s_stderr or "vk" in s_stderr.lower():
+                    platform_issues.append("**VK**: ❌ Failed. VK API may require authentication. Add a VK Access Token in the sidebar for better results.")
+            
+            if platform_issues:
+                with st.expander("⚠️ Platform-Specific Issues Detected", expanded=True):
+                    for issue in platform_issues:
+                        st.markdown(issue)
+                    st.markdown("""
+**Working platforms:**
+- ✅ **Web/Scholar**: Google Search and Google Scholar (always reliable)
+- ✅ **YouTube**: Video search with transcripts (requires `yt-dlp` and `youtube-transcript-api`)
+- ✅ **Reddit**: Subreddit search with comments (requires `praw` + credentials in sidebar)
+
+**Problematic platforms:**
+- ⚠️ **X/Twitter**: Frequently blocked by Twitter - not recommended
+- ⚠️ **VK**: May require VK Access Token for reliable results
+                    """)
+
             # Find most recent social dir
             s_subs = sorted([p for p in pathlib.Path(s_out_root).iterdir() if p.is_dir()], reverse=True)
             if s_subs:
@@ -405,10 +438,29 @@ If scrapers fail, check stderr output after collection.
                 # Check if directory has actual results
                 index_file = pathlib.Path(social_results_dir) / "index.json"
                 if index_file.exists():
-                    st.session_state["social_results_dir"] = str(social_results_dir)
-                    st.success(f"Social results dir: {social_results_dir}")
+                    # Count actual results by platform
+                    try:
+                        with open(index_file, 'r') as f:
+                            index_data = __import__("json").load(f)
+                            entries = index_data.get("entries", [])
+                            platform_counts = {}
+                            for entry in entries:
+                                platform = entry.get("category", "unknown")
+                                platform_counts[platform] = platform_counts.get(platform, 0) + 1
+                            
+                            if platform_counts:
+                                st.session_state["social_results_dir"] = str(social_results_dir)
+                                success_msg = f"Social results dir: {social_results_dir}"
+                                for platform, count in platform_counts.items():
+                                    success_msg += f"\n- {platform}: {count} queries processed"
+                                st.success(success_msg)
+                            else:
+                                st.warning(f"Social collection completed but no results were saved. Check output above for errors.")
+                    except Exception:
+                        st.session_state["social_results_dir"] = str(social_results_dir)
+                        st.success(f"Social results dir: {social_results_dir}")
                 else:
-                    st.warning(f"Social collection completed but no results were saved. Check stderr output above for errors (e.g., missing dependencies, API blocks).")
+                    st.warning(f"Social collection completed but no results were saved. Check output above for errors.")
 
     st.header("2) Export & Dedupe")
     if results_dir:
