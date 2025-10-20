@@ -1,0 +1,154 @@
+category,query,language,engine,title,link,source,publication_info,pdf_link,date,snippet,position,year_min,year_max,occurrences,label,confidence,pmesii,source_type,admiralty_source_reliability,admiralty_distance_to_origin,admiralty_info_credibility,rationale
+infrastructure,TEN-T Moldova rail road projects 2024..2025,en,scholar,Prospects for Russia's Crop Exports to China and Food Security of China,https://openalex.org/W4393170324,World Economy and International Relations (2024),,https://www.fao.org/3/cb9013en/cb9013en.pdf,,,,,,,non_intel,0.96,[],journal,A,b,3,Academic article on Russia–China crop trade; no Moldova content or infrastructure details. Not relevant to Moldova’s infrastructure dependencies.
+infrastructure,TEN-T Moldova rail road projects 2024..2025,en,scholar,"ROMANIA'S ROLE IN EU ENLARGEMENT: CHALLENGES, OPPORTUNITIES, AND STRATEGIC PREFERENCES FOR THE REPUBLIC OF MOLDOVA'S ACCESSION",https://openalex.org/W4405446717,EUROPOLITY CONTINUITY AND CHANGE IN EUROPEAN GOVERNANCE (2024),,,,,,,,,non_intel,0.82,[],journal,A,b,3,Focuses on Romania’s role in EU enlargement and Moldova’s accession preferences; lacks concrete Moldova infrastructure data.
+infrastructure,border crossing Moldova Ukraine modernization 2024..2025,en,scholar,,https://openalex.org/W4390484956,Socio World Social Research & Behavioral Sciences (2024),,https://zenodo.org/records/10443165/files/SWD-13.03.2023.pdf,,,,,,,non_intel,0.91,[],journal,A,b,6,"No title/snippet and no connection to Moldova; cannot assess content, and no infrastructure relevance indicated."
+infrastructure,hospital infrastructure Moldova 2024..2025,en,scholar,"Urban wastewater management in Nepal: generation, treatment, engineering and policy perspectives",https://openalex.org/W4392705247,H2Open Journal (2024),,https://iwaponline.com/h2open/article-pdf/doi/10.2166/h2oj.2024.105/1380580/h2oj2024105.pdf,,,,,,,non_intel,0.98,[],journal,A,b,3,Study about Nepal’s wastewater management; unrelated to Moldova’s infrastructure.
+infrastructure,hospital infrastructure Moldova 2024..2025,en,scholar,The application of the temporary protection directive: challenges and good practises for Ireland,https://openalex.org/W4395071041,2024,,https://www.esri.ie/pubs/RS185.pdf,,,,,,,non_intel,0.97,[],journal,A,b,3,Ireland’s temporary protection directive analysis; no Moldova infrastructure content.
+infrastructure,hospital infrastructure Moldova 2024..2025,en,scholar,Trauma Outcomes in Pediatric Nonfatal Road Traffic Accidents,https://openalex.org/W4391880505,2024,,,,,,,,,non_intel,0.98,[],journal,A,b,3,Medical outcomes of pediatric road accidents; no Moldova infrastructure relevance.
+infrastructure,data center Moldova cybersecurity 2024..2025,en,scholar,Digital health intervention reconnects war-affected people living with HIV to healthcare: Ukraine case study,https://openalex.org/W4406170261,Oxford Open Digital Health (2025),,,,,,,,,non_intel,0.96,[],journal,A,b,3,Ukraine digital health case study; not about Moldova infrastructure.
+infrastructure,data center Moldova cybersecurity 2024..2025,en,scholar,British and Polish Temporary Protection Schemes... Addressing Displaced Persons from Ukraine,https://openalex.org/W4391102759,Časopis pro právní vědu a praxi (2024),,https://journals.muni.cz/cpvp/article/download/33664/32107,,,,,,,non_intel,0.96,[],journal,A,b,3,Legal analysis of UK/Polish temporary protection schemes; no Moldova infrastructure details.
+infrastructure,data center Moldova cybersecurity 2024..2025,en,scholar,The role of “small alliances” in the foreign policy of Ukraine: the case of Lublin Triangle,https://openalex.org/W4406304990,Wschód Europy Studia humanistyczno-społeczne (2024),,,,,,,,,non_intel,0.94,[],journal,A,b,3,Foreign policy piece on Ukraine’s small alliances; no Moldova infrastructure specifics.
+infrastructure,sabotage critical infrastructure Moldova 2024..2025,en,scholar,STRATEGIC PUTIN’S PLAN: WHAT ARE THE REAL GOALS OF CONTEMPORARY RUSSIA?,https://openalex.org/W4406304840,Octopus. (2025),,,,,,,,,non_intel,0.9,[],journal,C,b,3,General geopolitical analysis of Russia’s goals; lacks concrete Moldova infrastructure information.
+infrastructure,Moldova energy outage 2024,en,youtube,What happened when Moldova’s main power plant went dark,https://www.youtube.com/watch?v=D2VoJMLVlUw,International Energy Agency,,,20250701,"What do you do if 70% of your country's electricity comes from a power plant which no longer has a fuel supply? 
+
+Our latest video features exclusive footage from inside Moldova, where massive energy infrastructure projects are underway to bolster the country's energy independence and build new connections to Europe's grid. 
+
+Subtitrări în limba română disponibile. Subtitles available by clicking above. 
+
+Interested in Moldova's energy system? You can learn more on our website: https://www.iea.o",,,,,intel,0.89,"['Capabilities', 'Structures', 'Events']",NGO,B,b,2,"IEA video shows Moldova’s main plant outage and ongoing projects linking to Europe’s grid, indicating energy dependence and upgrades (2024–2025)."
+infrastructure,Moldova energy outage 2024,en,youtube,Moldova energy crisis: Thousands without heating as Russia cuts gas supplies,https://www.youtube.com/watch?v=9jiVrAVRKVc,Al Jazeera English,,,20250110,"Moldova is facing a dire energy crisis as Russia's gas supply cuts leave tens of thousands without heating and hot water in the harsh winter months. The government has declared a state of emergency to manage the crisis, which has disrupted daily life and increased hardships for many. Power outages have compounded the challenges, leaving residents to rely on scarce resources to stay warm. The country is seeking alternative energy solutions, but progress is slow. 
+
+Al Jazeera’s Um-e-Kulsoom Sharif",,,,,intel,0.78,"['Events', 'Capabilities', 'Organisations']",news,B,c,3,"Reports Russia’s gas cuts causing heating/power disruptions and a state of emergency in Moldova (Jan 2025), highlighting dependency and affected population."
+infrastructure,Moldova energy outage 2024,en,youtube,What happened when Moldova’s main power plant went dark,https://www.youtube.com/watch?v=Ti1wcvF9vDw,International Energy Agency,,,20250630,"What do you do if 70% of your country's electricity comes from a power plant which no longer has a fuel supply? Full video available now! 
+
+Our latest video features exclusive footage from inside Moldova, where massive energy infrastructure projects are underway to bolster the country's energy independence and build new connections to Europe's grid. 
+
+Subtitrări în limba română disponibile. Subtitles available in Romanian on the main video. 
+
+Interested in Moldova's energy system? You can learn ",,,,,intel,0.76,"['Capabilities', 'Structures', 'Events']",NGO,B,b,3,IEA teaser referencing Moldova’s main plant losing fuel and new connections to Europe’s grid; indicates infrastructure upgrades and vulnerabilities.
+infrastructure,Moldova energy outage 2024,en,youtube,Moldova braces for energy crisis as Russia halts gas supplies,https://www.youtube.com/watch?v=Uxi9ELVdAIY,euronews,,,20241231,"Moldovan leaders have implemented energy-saving measures and assured residents of temporary gas reserves, but fears of a humanitarian crisis in Transnistria remain.
+
+READ MORE : https://www.euronews.com/2024/12/31/moldova-braces-for-energy-crisis-as-russia-halts-gas-supplies
+
+Subscribe to our channel: https://www.youtube.com/c/euronews?sub_confirmation=1
+Watch our LIVE here: https://www.youtube.com/c/euronews/live
+
+Subscribe to our thematic channels:
+NoComment: https://www.youtube.com/c/nocommen",,,,,intel,0.8,"['Events', 'Capabilities', 'Areas']",news,B,c,3,Details Moldova bracing for crisis as Russia halts gas; mentions energy-saving measures and humanitarian risks in Transnistria (Dec 2024).
+infrastructure,Moldova energy outage 2024,en,youtube,Kyiv’s halt of Russian gas throws Moldova into energy crisis,https://www.youtube.com/watch?v=UoOxNc1fCx8,DD India,,,20250105,"#ukrainewar #moldova #russiaukrainewar #ukrainerussiawar #moldovanews 
+
+DD India is India’s 24x7 international news channel from the stable of the country’s Public Service Broadcaster, Prasar Bharati.  Launched in 2021, DD India has made a name for itself to deliver balanced, fair and accurate news from India and around the world. Apart from daily news bulletins tracking the developments around the world, DD India airs major events of national importance, analysis of current events and informati",,,,,intel,0.72,"['Events', 'Capabilities', 'Organisations']",news,C,c,3,"Links Ukraine’s halt of Russian gas transit to Moldova’s energy crisis (Jan 2025), indicating supply route dependency and organisational actors."
+infrastructure,Moldova energy outage 2024,en,youtube,Moldova Declares State of Emergency Amid Energy Supply Fears,https://www.youtube.com/watch?v=3Xy0JYLBtSQ,NewsBOT Politics,,,20241213,"In a decisive move reflecting the escalating energy crisis, Moldova's parliament has voted to impose a state of emergency in the energy sector, driven by concerns that Russia may cut off natural gas supplies this winter. The vote, which took plac ...
+
+Sources:
+https://www.ctvnews.ca/world/moldova-declares-a-state-of-emergency-over-energy-as-fears-of-russian-gas-shortage-loom-1.7144407
+https://www.independent.co.uk/news/world/europe/ap-transnistria-ukraine-moldova-european-union-b2663921.html
+htt",,,,,intel,0.67,"['Events', 'Organisations']",other,D,d,3,Aggregates reports that Moldova’s parliament imposed an energy state of emergency over feared Russian gas cutoff (Dec 2024).
+infrastructure,Moldova energy outage 2024,en,youtube,Gazprom Blackmails Moldova: Gas Storages Are 80% Empty,https://www.youtube.com/watch?v=JgRDbQ14hGY,UATV English,,,20241211,"The artificial energy crisis in Moldova was provoked by gazprom. Who is responsible for 80% of empty gas storage in Moldova? The country can even face power outages as there's simply no fuel for power plants to operate. Ukraine could help Moldova in this situation if a gas supply treaty with Ukraine is signed.
+
+_____________________________________
+🔴 Be sure to subscribe to UATV English!
+🔵 Twitter: https://twitter.com/UATV_en
+🔵 WhatsApp: https://whatsapp.com/channel/0029Vau7DqJ2ZjCqG62sek1B
+🔵 We",,,,,intel,0.65,"['Organisations', 'Capabilities', 'Events']",news,C,c,4,Claims Gazprom-triggered crisis and low gas storage risking power generation; relevant but single-source and potentially biased (Dec 2024).
+infrastructure,Moldova energy outage 2024,en,youtube,Russian power of Moldova in the EU vote,https://www.youtube.com/watch?v=xPW6koSQZOY,Times Radio,,,20241021,"""Moldova, Transnistria, is occupied by Russian forces for several decades already... So it's very geopolitically tough.""
+
+Join this channel to get access to perks - 
+https://www.youtube.com/channel/UCTjDhFuGXlhx9Us0gq0VK2w/join
+
+📻 Listen to Times Radio - https://www.thetimes.co.uk/radio
+🗞 Subscribe to The Times https://www.thetimes.co.uk/subscribe/radio-3for3/ 
+📲 Get the free Times Radio app https://www.thetimes.co.uk/radio/how-to-listen-to-times-radio/app",,,,,non_intel,0.78,[],news,B,c,3,Political commentary on Russian influence and Transnistria without concrete infrastructure details for Moldova.
+infrastructure,Moldova energy outage 2024,en,youtube,State of emergency in Moldova. What does it mean? | The Bottom Line,https://www.youtube.com/watch?v=wRgzcs3dYIE,TVP WORLD,,,20241216,"On Monday, December 16, a state of energy emergency was declared in Moldova. This is due to a looming halt of natural gas supplies via Ukraine, which is a problem because most of Moldovan electricity comes from burning this very fuel (to make matters more complicated – in a power plant located in Transnistria, a breakaway region). Martin Vladimirov, Director for Energy and Climate at the Center for the Study of Democracy, explains how difficult the situation in the country may become, what the p",,,,,intel,0.74,"['Events', 'Structures', 'Capabilities']",news,C,c,3,"Explains Moldova’s energy emergency, dependence on gas-fired plant in Transnistria, and risks from halted transit (Dec 2024)."
+infrastructure,Moldova energy outage 2024,en,youtube,Euro-Atlantic community with #Ukraine #Moldova #Georgia and the countries of the #WesternBalkans,https://www.youtube.com/watch?v=hd4NbudZyXQ,EU Debates | eudebates.tv,,,20240104,"Subscribe here: https://bit.ly/eudebates As enlargement is back on the EU agenda in an unprecedented way, it is also an opportunity for a stronger bond in EU-US relations. In the coming days, months and years we must join our efforts and ensure diligently that Ukraine, Moldova, Georgia and the countries of the Western Balkans become firmly anchored in an enlarged Euro-Atlantic community. There is no better way to respond to Putin than to defeat him by successful EU and NATO enlargements in our e",,,,,non_intel,0.85,[],other,D,c,3,"General EU/NATO enlargement discussion; no actionable details on Moldova’s infrastructure, dependencies, or incidents."
+infrastructure,TEN-T Moldova 2024,en,youtube,Webinar TEN-T and its impact on local mobility policy 2024,https://www.youtube.com/watch?v=cnb7nbxbB5I,Mobiel 21,,,20241213,"The new European TEN-T legislation has been approved. Now it is up to national, regional and local authorities to put the framework into practice. But what does that mean for Belgian cities and towns? Pim Bonne and Kathleen Huet from MOW, as well as Thomas Richard from SPW, have all the answers!",,,,,non_intel,0.67,[],NGO,C,b,3,Webinar focuses on Belgian local mobility policy and TEN-T implementation; no Moldova-specific infrastructure details or data.
+infrastructure,TEN-T Moldova 2024,en,youtube,Top 10 Best Things to Do in Moldova [Moldova Travel Guide 2024],https://www.youtube.com/watch?v=ETzFHaKTe-g,Vacation Idea,,,20240112,"Welcome to Moldova, a hidden gem in Eastern Europe! In this video, we will take on a virtual journey to explore the best things to do in Moldova. From breathtaking landscapes to rich cultural heritage, Moldova has it all. Whether you are an adventure seeker, a history lover, or a food enthusiast, Moldova offers a diverse range of experiences that will captivate your senses.
+
+Discover the charming capital city, Chișinău, with its vibrant mix of architectural styles and bustling markets. Immerse y",,,,,non_intel,0.83,[],other,D,b,6,"Travel guide content about attractions; lacks actionable details on Moldova’s infrastructure systems, actors, or policies."
+infrastructure,TEN-T Moldova 2024,en,youtube,Could Moldova retake Transnistria?,https://www.youtube.com/watch?v=Cdl75smtVE0,Prof James Ker-Lindsay,,,20240329,"In March 2024, Transnistria, a breakaway region of Moldova under Russia’s influence for over 30 years, appealed to Moscow for help, fearing Moldovan attempts to regain control. While Russia has warned that any use of force would be seen as an attack against the Russian Federation, some nevertheless believe that the war in Ukraine has provided Moldova with a prime opportunity to reassert sovereignty over Transnistria. But could Moldova really be planning to retake Transnistria by force?
+
+The Repu",,,,,non_intel,0.62,[],other,C,b,3,Geopolitical analysis of potential conflict over Transnistria without concrete infrastructure data in the snippet provided.
+infrastructure,TEN-T Moldova 2024,en,youtube,"EU, Ukraine and Moldova sign high level understandings to improve transport connectivity",https://www.youtube.com/watch?v=sTcMcNEzkWA,EU Debates | eudebates.tv,,,20240215,"Subscribe here: https://bit.ly/eudebates On 22 December, the European Commission signed high-level Memoranda of Understanding (MOU) with Ukraine and Moldova to revise the trans-European transport (TEN-T) network in their territories and improve connections with the EU.
+
+The modified TEN-T maps for both countries also reflect new transport priorities in the wake of Russia’s war of aggression against Ukraine. 
+
+The changes will be reflected in the new TEN-T Regulation when it enters into force in ",,,,,intel,0.78,"['Areas', 'Structures', 'Capabilities', 'Organisations', 'Events']",news,C,c,2,Reports EC signing MoUs with Moldova/Ukraine revising TEN-T maps to improve EU connections post-war—concrete policy/event shaping transport integration.
+infrastructure,TEN-T Moldova 2024,en,youtube,Historical countries Part 4: Principality of Moldavia #moldova #moldavia #edit #history #mapping,https://www.youtube.com/watch?v=8s2hEINGTRE,Portuguese_Division,,,20240310,"didn't do a video about this series since September 😅
+
+Background credits:@AidinRobbins 
+Info: mostly from Wikipedia 
+Music: Whiskey Cola tequila - Mako Mamuko",,,,,non_intel,0.95,[],other,D,b,6,Historical/entertainment short with no current Moldova infrastructure relevance or specifics.
+infrastructure,TEN-T Moldova 2024,en,youtube,"""Don’t Visit Moldova!"" Reality of Europe's Poorest Country (Chisinau)",https://www.youtube.com/watch?v=YI71arRQdOA,Dany Dev,,,20240921,"Welcome to Chisinau,Moldova! I Recommend the Travel Medical Insurance by SafetyWing: https://safetywing.com/nomad-insurance/?referenceID=gotaworldtosee&campaign=moldova-x-safetywing-september&utm_campaign=moldova-x-safetywing-september&utm_source=gotaworldtosee&utm_medium=Ambassador
+.
+Check out @lizachaika Channel :D 
+.
+Join me on My Instagram : https://www.instagram.com/danydevv/ 
+.
+Check out my Level8 Travel Luggage with Worldwide shipping (Code""Dany15""): https://www.clkmg.com/LEVEL8/DanyDev
+.",,,,,non_intel,0.86,[],other,D,b,6,"Travel vlog; provides impressions and promotions, not infrastructure intelligence or quantified details."
+infrastructure,TEN-T Moldova 2024,en,youtube,What If Moldova Didn't Exist?🇲🇩😲,https://www.youtube.com/watch?v=zfXYugOzPFg,Outer Side,,,20241225,"#moldova #romania #russia #maps #facts #geography #mapper 
+--------------------------------------------------------------------------------------------------------------------
+Imagine a vast ocean cutting through Eastern Europe—Ukraine and Romania separated by endless waters. No landlocked nation, no green hills, just waves where Moldova should be.
+
+Historically? No Moldova means no Principality of Moldavia resisting the Ottoman Empire, no Bessarabian region shaping the history of Eastern Europe",,,,,non_intel,0.96,[],other,D,b,6,Hypothetical scenario/entertainment; no actionable infrastructure information about Moldova.
+infrastructure,TEN-T Moldova 2024,en,youtube,Top 10 Poorest Countries in Europe 2024: Economic Realities & Future Prospects,https://www.youtube.com/watch?v=SKwDNs3HB58,DSRT TV,,,20240905,"""Discover the top 10 poorest countries in Europe for 2024, ranked by their GNI per capita. This video provides a detailed analysis of the economic conditions in these countries, including Ukraine, Moldova, and Albania. We explore the factors contributing to their low-income levels and discuss what the future holds for these nations. Whether you’re interested in global economics or the specific challenges facing Eastern Europe, this video provides valuable insights and information.""
+
+🔔 Don't forg",,,,,non_intel,0.74,[],other,D,c,3,"Macro-economic ranking video; lacks Moldova-specific infrastructure systems, capabilities, or policy detail."
+infrastructure,TEN-T Moldova 2024,en,youtube,Would you visit Europes poorest and least visited country? 🇲🇩 #moldova,https://www.youtube.com/watch?v=9kEnI1NZneg,Kieran Brown,,,20240909,,,,,,non_intel,0.97,[],other,F,b,6,Short-form travel teaser; no infrastructure content or verifiable details relevant to Moldova.
+infrastructure,TEN-T Moldova 2024,en,youtube,Country 57 is MOLDOVA 🇲🇩 #moldova #chișinău #europe,https://www.youtube.com/watch?v=Ms0XmtS5zE8,Curious Ines,,,20241103,"Moldavia is the Portuguese name for Moldova, since I was tired I messed up the video, and I also mispronounce Chisinău 😅 I do apologise for it, but when I do short trips like this, I don’t sleep enough and things like this can happen 💤🙂‍↕️
+
+Here are 10 interesting facts about one of the least visited countries in Europe:
+
+1️⃣ WINE COUNTRY: Moldova is home to one of the largest underground wine cellars in the world — Mileștii Mici — which stretches over 200 kilometers! 🍷It holds the Guinness Worl",,,,,non_intel,0.9,[],other,D,b,3,General country facts/travel; mentions wine cellars but no actionable infrastructure insights for 2024–2025.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,Жириновский о событиях в Приднестровье! #жириновский #ввж #приднестровье #молдова #санду,https://www.youtube.com/watch?v=KEqPYvF7iGs,LDPR-TV,,,20240229,"Историческое видео выступления Владимира Жириновского где он прогноз по Приднестровью и о попытках злых ""гениев"" Запада спровоцировать войну! 
+
+#жириновский #ввж #лдпр #лдпртв #сво #молдова #колбасна #приднестровье #депутатыприднестровья #лидерлдпр #прогнозжириновского #жириновскийпророк",,,,,non_intel,0.88,[],other,E,b,4,"Partisan propaganda content about Transnistria; no concrete, verifiable infrastructure information provided."
+infrastructure,Cuciurgan MGRES 2024,en,youtube,የዘመናዊ አረቢያን መጅሊስ ዋጋ በኢትዮጵያ 2016 | Price Of Modern Arabian Mejlis in Ethiopia 2024,https://www.youtube.com/watch?v=jnc0BKs4v2M,Merkato Tube,,,20240316,"Check out this video. https://youtu.be/jnc0BKs4v2M
+Unauthorized use, distribution, and re-upload of this content is strictly prohibited. 
+Copyright ©2024 Merkato Tube
+ከመርካቶ ቲዩብ ጋር በመስራት ምርትና አገልግሎትዎን ማስተዋወቅ ከፈለጉ 0963979800 ይደውሉልን",,,,,non_intel,0.99,[],other,F,b,6,Content is unrelated (Ethiopia furniture); no Moldova or infrastructure relevance.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,Санду потребовала подготовить захват Молдавской ГРЭС в Приднестровье #shorts #short #новости,https://www.youtube.com/watch?v=-AmgNciMQx8,ONT TV Channel,,,20241223,,,,,,non_intel,0.81,[],news,E,c,5,Sensational claim about seizing Moldavskaya GRES without substantiation; unreliable state media and no details—cannot use as actionable intel.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,Громкий выхлоп BMW M4(G82) #moscow #москва #russia #cars #carlover #bmw #бмв #carspotting,https://www.youtube.com/watch?v=7YJkvVQO-WA,12mp gallery,,,20240611,,,,,,non_intel,0.99,[],other,F,b,6,Automotive video; unrelated to Moldova or infrastructure intelligence.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,Mejlis Arabia In Ethiopia,https://www.youtube.com/watch?v=rpNcGoAj1RE,Royal furniture,,,20230528,,,,,,non_intel,0.99,[],company,C,b,6,Company product video (furniture) unrelated to Moldova or infrastructure topics.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,"Expoziția ZdG „Corupția și Războiul”, vizitată de președinta Maia Sandu | zdg.md",https://www.youtube.com/watch?v=lAVLKRpFKQk,Ziarul de Gardă,,,20221215,"Expoziția „Corupția și Războiul”, vernisată de Ziarul de Gardă la Muzeul Naţional de Istorie, a fost vizitată joi, 15 decembrie, de președinta R. Moldova, Maia Sandu. 
+
+Expoziția este deschisă publicului până pe data de 29 decembrie 2022.
+
+Puteți susține Ziarul de Gardă devenind patronul nostru pe https://www.patreon.com/zdg
+
+Investigațiile ZdG: https://bit.ly/3FybYIQ
+Emisiunea „Dincolo de Investigații”: https://bit.ly/3K9iwkK
+Reportajele ZdG: https://bit.ly/3txGnor
+Emisiunea „Săptămâna de G",,,,,non_intel,0.7,[],news,C,b,3,Local news clip about an exhibition (2022); no 2024–2025 infrastructure details relevant to Moldova’s systems or policies.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,यवतमाळच्या शेतकऱ्याकडून शासनाच्या रोजगार हमी योजनेचं पोस्टमार्टेम! Farmar MGRES,https://www.youtube.com/watch?v=VqjL5-QspWg,Mumbai Tak,,,20241109,"#MumbaiTakNews  #LatestMarathiNews #MaharashtraPolitics
+
+🔴लॉग इन करा: https://www.mumbaitak.in/
+Follow us on :
+Google News : https://news.google.com/publications/CAAqBwgKMLeLpAsw-pW8Aw?hl=mr&gl=IN&ceid=IN%3Amr
+Facebook: https://www.facebook.com/mumbaitak
+Instagram: https://www.instagram.com/mumbaitak
+Twitter: https://twitter.com/mumbai_tak
+https://www.youtube.com/playlist?list=PLzHYo6L3SZJGBWc_BPfqMt5Yq24d_AXCa
+
+#maharashtra #marathi ##marathinews
+
+इंडिया टुडेच्या मुंबई तक या मराठी युट्यूब चॅनलव",,,,,non_intel,0.99,[],news,C,b,6,Indian regional news content; unrelated to Moldova or its infrastructure.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,Moldavia: domenica elezioni cruciali. La presidente Maia Sandu sogna l'emancipazione dalla Russia,https://www.youtube.com/watch?v=O_OjUK2oALs,euronews (in Italiano),,,20210709,"Il parlamento moldavo era controllato dall'alleanza dei socialisti filo-russi dell'ex presidente Igor Dodon
+
+ALTRE INFORMAZIONI : https://it.euronews.com/2021/07/09/moldavia-domenica-elezioni-cruciali-la-presidente-maia-sandu-sogna-l-emancipazione-dalla-r
+
+Abbonati : https://www.youtube.com/c/euronewsit?sub_confirmation=1
+Euronews in streaming : https://www.youtube.com/c/euronewsit/live
+
+euronews è disponibile in 12 lingue: https://www.youtube.com/user/euronewsnetwork/channels
+
+#BrusselsBureau",,,,,non_intel,0.87,[],news,B,c,3,2017–2021 political election coverage; outside timeframe and not infrastructure-focused for 2024–2025 needs.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,La sfida di Maia Sandu che vince le elezioni e guarda all'Europa,https://www.youtube.com/watch?v=add-ze4zb1o,euronews (in Italiano),,,20210714,"La vittoria del partito europeista PAS alle elezioni parlamentari di domenica in Moldova ha ripagato quella che molti hanno definito una scommessa dell'ex leader del partito e attuale presidente del paese Maia Sandu
+
+ALTRE INFORMAZIONI : https://it.euronews.com/2021/07/14/la-sfida-di-maia-sandu-che-vince-le-elezioni-e-guarda-all-europa
+
+Abbonati : https://www.youtube.com/c/euronewsit?sub_confirmation=1
+Euronews in streaming : https://www.youtube.com/c/euronewsit/live
+
+euronews è disponibile in 1",,,,,non_intel,0.87,[],news,B,c,3,2021 election analysis; not current and lacks actionable infrastructure details for Moldova’s 2024–2025 context.
+infrastructure,Cuciurgan MGRES 2024,en,youtube,violet myers 🤤💦 #violet #star #peach #shake #body #celebrity,https://www.youtube.com/watch?v=2br95WQS61Y,Irani_Porn,,,20240731,,,,,,non_intel,0.99,[],other,F,b,6,Pornographic/celebrity content; unrelated to Moldova or infrastructure intelligence.

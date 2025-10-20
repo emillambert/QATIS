@@ -6,7 +6,7 @@ from typing import Optional
 def analyze_results(
     results_dir: pathlib.Path,
     input_csv: str = "results_deduped.csv",
-    model: str = "gpt-4o",
+    model: str = "gpt-5",
     batch_size: int = 20,
     limit: int = 0,
     no_fetch: bool = False,

@@ -81,7 +81,7 @@ def export(
 def analyze(
     results_dir: pathlib.Path = typer.Option(..., help="Results directory"),
     input_csv: str = typer.Option("results_deduped.csv", help="Input CSV inside results_dir"),
-    model: str = typer.Option("gpt-4o", help="OpenAI model"),
+    model: str = typer.Option("gpt-5", help="OpenAI model"),
     batch_size: int = typer.Option(20, help="Batch size to LLM"),
     limit: int = typer.Option(0, help="Analyze first N rows if >0"),
     no_fetch: bool = typer.Option(False, help="Skip fetching article text"),
@@ -120,7 +120,7 @@ def run_all(
     engines: str = typer.Option("web scholar"),
     include_ru: bool = typer.Option(False),
     include_ro: bool = typer.Option(False),
-    model: str = typer.Option("gpt-4o"),
+    model: str = typer.Option("gpt-5"),
     batch_size: int = typer.Option(20),
     limit: int = typer.Option(0),
     no_fetch: bool = typer.Option(False),

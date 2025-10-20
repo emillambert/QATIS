@@ -1,0 +1,43 @@
+x:
+  broad:
+    - 'Moldelectrica outage since:2024-01-01 until:2025-12-31 lang:en'
+    - 'MGRES Cuciurgan since:2024-01-01 until:2025-12-31 lang:ru'
+    - 'blackout Moldova since:2024-01-01 until:2025-12-31 lang:en'
+  specific:
+    - 'bridge damage Moldova since:2024-01-01 until:2025-12-31'
+    - 'rail disruption Moldova since:2024-01-01 until:2025-12-31'
+
+youtube:
+  broad:
+    - 'Moldova energy outage 2024'
+    - 'TEN-T Moldova 2024'
+  specific:
+    - 'Cuciurgan MGRES 2024'
+  queries:
+    - 'Moldova energy outage 2024'
+    - 'TEN-T Moldova 2024'
+    - 'Cuciurgan MGRES 2024'
+
+reddit:
+  queries:
+    - 'Moldova power outage'
+    - 'Moldova rail infrastructure'
+  subreddits:
+    - 'europe'
+    - 'energy'
+
+vk:
+  queries:
+    - 'Молдова отключение электричества 2024'
+    - 'Кучурганская ГРЭС 2024'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'авария'
+    - 'ремонт'
+  keywords_specific:
+    - 'обесточивание'
+    - 'интерконнектор'

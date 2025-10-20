@@ -10,7 +10,7 @@ import re
 import time
 import subprocess
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, fields as dataclass_fields
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 import concurrent.futures as futures
 
@@ -54,8 +54,11 @@ def load_rows(csv_path: pathlib.Path, limit: Optional[int] = None) -> List[Row]:
     rows: List[Row] = []
     with open(csv_path, "r", encoding="utf-8") as f:
         r = csv.DictReader(f)
+        # Support simplified CSVs by filling missing fields with None
+        row_field_names = [fld.name for fld in dataclass_fields(Row)]
         for i, rec in enumerate(r):
-            rows.append(Row(**{k: rec.get(k) for k in r.fieldnames}))
+            normalized = {name: rec.get(name) for name in row_field_names}
+            rows.append(Row(**normalized))
             if limit and len(rows) >= limit:
                 break
     return rows
@@ -193,16 +196,22 @@ def openai_client() -> OpenAI:
 @retry(wait=wait_exponential_jitter(initial=1, max=20), stop=stop_after_attempt(4))
 def call_llm(client: OpenAI, model: str, system_prompt: str, items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     user_payload = json.dumps({"items": items}, ensure_ascii=False)
-    resp = client.chat.completions.create(
-        model=model,
-        temperature=0.1,
-        max_tokens=4096,  # Increased from 1200 to handle larger batches
-        response_format={"type": "json_object"},
-        messages=[
+    # Some models (e.g., gpt-5) require max_completion_tokens instead of max_tokens
+    req_params: Dict[str, Any] = {
+        "model": model,
+        "response_format": {"type": "json_object"},
+        "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_payload},
         ],
-    )
+    }
+    if not str(model).lower().startswith("gpt-5"):
+        req_params["temperature"] = 0.1
+    if str(model).lower().startswith("gpt-5"):
+        req_params["max_completion_tokens"] = 16384
+    else:
+        req_params["max_tokens"] = 16384
+    resp = client.chat.completions.create(**req_params)
     content = resp.choices[0].message.content or "{}"
     try:
         data = json.loads(content)
@@ -317,7 +326,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze search results with LLM and export scores/PMESII/BibTeX")
     parser.add_argument("--results-dir", required=True, help="Timestamped results dir, e.g. search_results/20251015_001826")
     parser.add_argument("--input", default="results_deduped.csv", help="Input CSV (deduped or raw)")
-    parser.add_argument("--model", default="gpt-4o", help="Model name")
+    parser.add_argument("--model", default="gpt-5", help="Model name")
     parser.add_argument("--batch-size", type=int, default=20)
     parser.add_argument("--limit", type=int, default=0, help="Only analyze first N rows if >0")
     parser.add_argument("--no-fetch", action="store_true", help="Do not fetch article text")

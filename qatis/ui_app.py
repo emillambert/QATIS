@@ -547,7 +547,7 @@ If scrapers fail, check stderr output after collection.
 
     st.header("3) Analyze")
     if results_dir:
-        model_default = "gpt-4o"
+        model_default = "gpt-5"
         batch_default = 50 if st.session_state.get("speed_mode_active") else 20
         model = st.text_input("Model", value=model_default)
         batch_size = st.number_input("Batch size", value=batch_default)

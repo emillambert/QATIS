@@ -1,0 +1,50 @@
+x:
+  broad:
+    - 'Maia Sandu policy since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Dorin Recean NATO security since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Igor Dodon neutrality Russia since:2024-01-01 until:2025-12-31 lang:ro'
+  specific:
+    - 'Gagauzia statute since:2024-01-01 until:2025-12-31'
+    - 'CEC Moldova procedures since:2024-01-01 until:2025-12-31'
+  users:
+    - 'MoldovaGov'
+    - 'presedintemaia'
+    - 'gov_md'
+
+youtube:
+  broad:
+    - 'Moldova election 2024 analysis'
+    - 'Gagauzia autonomy Moldova 2024'
+  specific:
+    - 'Maia Sandu speech 2024'
+    - 'Igor Dodon interview 2024'
+  queries:
+    - 'Moldova election 2024 analysis'
+    - 'Gagauzia autonomy Moldova 2024'
+    - 'Maia Sandu speech 2024'
+    - 'Igor Dodon interview 2024'
+
+reddit:
+  queries:
+    - 'Moldova election 2024'
+    - 'Moldova protests 2024'
+  subreddits:
+    - 'geopolitics'
+    - 'europe'
+    - 'moldova'
+
+vk:
+  queries:
+    - 'Молдова выборы 2024'
+    - 'Гагаузия автономия'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'protest'
+    - 'election'
+  keywords_specific:
+    - 'дезинформация'
+    - 'пропаганда'
