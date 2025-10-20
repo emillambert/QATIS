@@ -3,38 +3,38 @@
 # See queries_social.yaml for platform-specific adaptations
 
 areas:
-  - "Moldova infrastructure overview" OR "critical infrastructure Moldova"
-  - "Moldova energy grid" OR "power transmission Moldova site:europa.eu"
-  - "Transnistria electricity network" OR "Cuciurgan power plant Inter RAO"
-  - "Moldova TEN-T transport corridor" OR "EU investment infrastructure Moldova"
+  - '"Moldova infrastructure overview" OR "critical infrastructure Moldova"'
+  - '"Moldova energy grid" OR "power transmission Moldova site:europa.eu"'
+  - '"Transnistria electricity network" OR "Cuciurgan power plant Inter RAO"'
+  - '"Moldova TEN-T transport corridor" OR "EU investment infrastructure Moldova"'
 
 structures:
-  - Moldelectrica ownership OR restructuring
-  - "Moldtelecom privatisation 2024" OR "telecom sector Moldova"
-  - "Energy Community Moldova report" filetype:pdf
-  - "Ministry of Infrastructure and Regional Development Moldova strategy"
+  - 'Moldelectrica ownership OR restructuring'
+  - '"Moldtelecom privatisation 2024" OR "telecom sector Moldova"'
+  - '"Energy Community Moldova report" filetype:pdf'
+  - '"Ministry of Infrastructure and Regional Development Moldova strategy"'
 
 capabilities:
-  - "Moldova energy dependence on Russia" 2024..2025
-  - "ENISA Moldova cybersecurity report" OR "cyber maturity Moldova"
-  - "World Bank Moldova infrastructure connectivity"
-  - "road quality index Moldova 2024" OR "transport resilience Moldova"
+  - '"Moldova energy dependence on Russia" 2024..2025'
+  - '"ENISA Moldova cybersecurity report" OR "cyber maturity Moldova"'
+  - '"World Bank Moldova infrastructure connectivity"'
+  - '"road quality index Moldova 2024" OR "transport resilience Moldova"'
 
 organisations:
-  - "EU4Energy Moldova" OR "Energy Community Moldova"
-  - "Gazprom Moldova" OR "Inter RAO Transnistria"
-  - "Council of Europe Eastern Partnership infrastructure"
-  - "USAID Moldova renewable project"
+  - '"EU4Energy Moldova" OR "Energy Community Moldova"'
+  - '"Gazprom Moldova" OR "Inter RAO Transnistria"'
+  - '"Council of Europe Eastern Partnership infrastructure"'
+  - '"USAID Moldova renewable project"'
 
 people:
-  - "engineers Moldova workforce" OR "technical education Moldova"
-  - "brain drain Moldova infrastructure sector"
-  - "human capital energy sector Moldova"
+  - '"engineers Moldova workforce" OR "technical education Moldova"'
+  - '"brain drain Moldova infrastructure sector"'
+  - '"human capital energy sector Moldova"'
 
 events:
-  - "Moldova cyberattack 2025" OR "government websites hacked Moldova"
-  - "Dniester bridge repairs Moldova site:dw.com"
-  - "energy crisis Moldova winter 2024"
-  - "EU aid infrastructure Moldova 2025"
+  - '"Moldova cyberattack 2025" OR "government websites hacked Moldova"'
+  - '"Dniester bridge repairs Moldova site:dw.com"'
+  - '"energy crisis Moldova winter 2024"'
+  - '"EU aid infrastructure Moldova 2025"'
 
 
