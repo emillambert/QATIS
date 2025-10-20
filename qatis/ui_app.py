@@ -74,7 +74,7 @@ def main():
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Web/Scholar Queries")
-        with st.expander("ℹ️ Query Format Guide", expanded=False):
+        with st.expander("ℹ️ Query Format Guide", expanded=True):
             st.markdown("""
 **Format:** Category-based YAML with quoted strings
 
@@ -115,7 +115,7 @@ structures:
 
         st.markdown("")
         st.subheader("Social Queries")
-        with st.expander("ℹ️ Social Query Format Guide", expanded=False):
+        with st.expander("ℹ️ Social Query Format Guide", expanded=True):
             st.markdown("""
 **Format:** Platform-specific YAML structure
 
@@ -206,7 +206,7 @@ vk:
         # Show dependency hints for social platforms
         selected_social = [e for e in engines if e in ["x", "youtube", "reddit", "vk"]]
         if selected_social:
-            with st.expander("📦 Social Platform Dependencies", expanded=False):
+            with st.expander("📦 Social Platform Dependencies", expanded=True):
                 st.markdown("""
 **Required packages per platform:**
 - **X/Twitter**: `snscrape` (often blocked by Twitter)
@@ -469,8 +469,9 @@ If scrapers fail, check stderr output after collection.
                     st.warning(f"Social collection completed but no results were saved. Check output above for errors.")
 
     st.header("2) Export & Dedupe")
-    if results_dir:
-        if st.button("Export CSV"):
+    export_disabled = not bool(results_dir)
+    if st.button("Export CSV", disabled=export_disabled):
+        if results_dir:
             args = [
                 sys.executable, "export_results_to_csv.py",
                 "--results-dir", str(results_dir),
@@ -492,13 +493,16 @@ If scrapers fail, check stderr output after collection.
                 st.dataframe(
                     __import__("pandas").read_csv(out_csv).head(50)
                 )
+    if export_disabled:
+        st.info("Export will be enabled after Step 1 completes and a results directory is created.")
 
-    # Export social CSV if we have a social results directory
+    # Export social CSV (visible always; disabled until social results exist)
     social_results_dir = st.session_state.get("social_results_dir")
-    if social_results_dir:
-        col_soc_a, col_soc_b = st.columns(2)
-        with col_soc_a:
-            if st.button("Export Social CSV"):
+    col_soc_a, col_soc_b = st.columns(2)
+    with col_soc_a:
+        social_export_disabled = not bool(social_results_dir)
+        if st.button("Export Social CSV", disabled=social_export_disabled):
+            if social_results_dir:
                 s_args = [
                     sys.executable, "export_results_to_csv.py",
                     "--results-dir", str(social_results_dir),
@@ -518,10 +522,11 @@ If scrapers fail, check stderr output after collection.
                 s_out_csv = pathlib.Path(social_results_dir) / "social_results.csv"
                 if s_out_csv.exists():
                     st.dataframe(__import__("pandas").read_csv(s_out_csv).head(50))
-
-        with col_soc_b:
-            # Merge web+social into the web results dir for downstream analysis/download
-            if st.button("Merge Web + Social CSV") and results_dir:
+    with col_soc_b:
+        # Merge web+social into the web results dir for downstream analysis/download
+        merge_disabled = not bool(results_dir) or not bool(social_results_dir)
+        if st.button("Merge Web + Social CSV", disabled=merge_disabled):
+            if results_dir and social_results_dir:
                 merged_out = pathlib.Path(results_dir) / "merged_results_with_social.csv"
                 m_args = [
                     sys.executable, "merge_csv.py",
@@ -544,91 +549,97 @@ If scrapers fail, check stderr output after collection.
                 if merged_out.exists():
                     st.success(f"Merged CSV created: {merged_out}")
                     st.dataframe(__import__("pandas").read_csv(merged_out).head(50))
+    if social_export_disabled or merge_disabled:
+        st.info("Social export/merge will be enabled once Step 1 creates web and/or social results.")
 
     st.header("3) Analyze")
+    analyze_disabled = not bool(results_dir)
+    model_default = "gpt-5"
+    batch_default = 50 if st.session_state.get("speed_mode_active") else 20
+    model = st.text_input("Model", value=model_default, disabled=analyze_disabled)
+    batch_size = st.number_input("Batch size", value=batch_default, disabled=analyze_disabled)
+    limit_default = 100 if st.session_state.get("speed_mode_active") else 0
+    limit = st.number_input("Limit (0=all)", value=limit_default, disabled=analyze_disabled)
+    no_fetch_default = True if st.session_state.get("speed_mode_active") else False
+    no_fetch = st.checkbox("No fetch (skip article text)", value=no_fetch_default, disabled=analyze_disabled)
+    no_cache = st.checkbox("No cache", disabled=analyze_disabled)
+
+    # Content analysis controls
+    col5, col6 = st.columns(2)
+    # Persist speed mode in session for analysis defaults
+    st.session_state["speed_mode_active"] = speed_mode
+    with col5:
+        default_mcc = 1500 if speed_mode else 8000
+        max_content_chars = st.number_input("Max content chars", value=default_mcc, help="Truncate content beyond this length to control costs", disabled=analyze_disabled)
+    with col6:
+        default_cm_index = 2 if speed_mode else 0  # min if speed mode else auto
+        content_mode = st.selectbox("Content mode", ["auto", "full", "min"], index=default_cm_index, help="auto: prefer full_content, full: always full, min: prefer snippet", disabled=analyze_disabled)
+
+    # Allow selecting which CSV to analyze
+    available_inputs = ["results_deduped.csv"]
     if results_dir:
-        model_default = "gpt-5"
-        batch_default = 50 if st.session_state.get("speed_mode_active") else 20
-        model = st.text_input("Model", value=model_default)
-        batch_size = st.number_input("Batch size", value=batch_default)
-        limit_default = 100 if st.session_state.get("speed_mode_active") else 0
-        limit = st.number_input("Limit (0=all)", value=limit_default)
-        no_fetch_default = True if st.session_state.get("speed_mode_active") else False
-        no_fetch = st.checkbox("No fetch (skip article text)", value=no_fetch_default)
-        no_cache = st.checkbox("No cache")
-
-        # Content analysis controls
-        col5, col6 = st.columns(2)
-        # Persist speed mode in session for analysis defaults
-        st.session_state["speed_mode_active"] = speed_mode
-        with col5:
-            default_mcc = 1500 if speed_mode else 8000
-            max_content_chars = st.number_input("Max content chars", value=default_mcc, help="Truncate content beyond this length to control costs")
-        with col6:
-            default_cm_index = 2 if speed_mode else 0  # min if speed mode else auto
-            content_mode = st.selectbox("Content mode", ["auto", "full", "min"], index=default_cm_index, help="auto: prefer full_content, full: always full, min: prefer snippet")
-
-        # Allow selecting which CSV to analyze
         rd_path = pathlib.Path(results_dir)
-        available_inputs = ["results_deduped.csv"]
         if (rd_path / "merged_results_with_social.csv").exists():
             available_inputs.insert(0, "merged_results_with_social.csv")
-        input_choice = st.selectbox("Input CSV", available_inputs, index=0)
+    input_choice = st.selectbox("Input CSV", available_inputs, index=0, disabled=analyze_disabled)
 
-        run_analyze = st.button("Run Analysis")
-        if run_analyze:
-            args = [
-                sys.executable, "-u", "analyze_results.py",  # -u for unbuffered output
-                "--results-dir", str(results_dir),
-                "--input", input_choice,
-                "--model", model,
-                "--batch-size", str(int(batch_size)),
-                "--max-content-chars", str(int(max_content_chars)),
-                "--content-mode", content_mode,
-            ]
-            if int(limit) > 0:
-                args += ["--limit", str(int(limit))]
-            if no_fetch:
-                args.append("--no-fetch")
-            if no_cache:
-                args.append("--no-cache")
-            if speed_mode:
-                args += ["--concurrency", "4"]
-            
-            a_prog = st.progress(0, text="Starting analysis...")
-            status_placeholder = st.empty()
-            
-            ap = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
-            
-            output_lines = []
-            import re
-            
-            while ap.poll() is None:
-                line = ap.stdout.readline()
-                if line:
-                    output_lines.append(line)
-                    # Parse progress messages like "Progress: 20/100 (20%)"
-                    match = re.search(r'Progress: (\d+)/(\d+) \((\d+)%\)', line)
-                    if match:
-                        current, total, pct = match.groups()
-                        a_prog.progress(min(int(pct), 99) / 100, text=f"Analyzing... {current}/{total}")
-                        status_placeholder.text(f"Processed {current} of {total} sources")
-                time.sleep(0.05)
-            
-            # Get any remaining output
-            remaining, _ = ap.communicate()
-            if remaining:
-                output_lines.append(remaining)
-            
-            a_prog.progress(1.0, text="Analysis finished")
-            status_placeholder.empty()
-            st.code("".join(output_lines))
-            scored = pathlib.Path(results_dir) / "results_scored.csv"
-            if scored.exists():
-                st.success("Scored CSV generated")
-                st.dataframe(__import__("pandas").read_csv(scored).head(100))
+    run_analyze = st.button("Run Analysis", disabled=analyze_disabled)
+    if run_analyze and results_dir:
+        args = [
+            sys.executable, "-u", "analyze_results.py",  # -u for unbuffered output
+            "--results-dir", str(results_dir),
+            "--input", input_choice,
+            "--model", model,
+            "--batch-size", str(int(batch_size)),
+            "--max-content-chars", str(int(max_content_chars)),
+            "--content-mode", content_mode,
+        ]
+        if int(limit) > 0:
+            args += ["--limit", str(int(limit))]
+        if no_fetch:
+            args.append("--no-fetch")
+        if no_cache:
+            args.append("--no-cache")
+        if speed_mode:
+            args += ["--concurrency", "4"]
+        
+        a_prog = st.progress(0, text="Starting analysis...")
+        status_placeholder = st.empty()
+        
+        ap = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
+        
+        output_lines = []
+        import re
+        
+        while ap.poll() is None:
+            line = ap.stdout.readline()
+            if line:
+                output_lines.append(line)
+                # Parse progress messages like "Progress: 20/100 (20%)"
+                match = re.search(r'Progress: (\d+)/(\d+) \((\d+)%\)', line)
+                if match:
+                    current, total, pct = match.groups()
+                    a_prog.progress(min(int(pct), 99) / 100, text=f"Analyzing... {current}/{total}")
+                    status_placeholder.text(f"Processed {current} of {total} sources")
+            time.sleep(0.05)
+        
+        # Get any remaining output
+        remaining, _ = ap.communicate()
+        if remaining:
+            output_lines.append(remaining)
+        
+        a_prog.progress(1.0, text="Analysis finished")
+        status_placeholder.empty()
+        st.code("".join(output_lines))
+        scored = pathlib.Path(results_dir) / "results_scored.csv"
+        if scored.exists():
+            st.success("Scored CSV generated")
+            st.dataframe(__import__("pandas").read_csv(scored).head(100))
+    if analyze_disabled:
+        st.info("Analysis will be enabled after Step 2 produces input CSVs in the results directory.")
 
     st.header("4) Download")
+    download_disabled = not bool(results_dir)
     if results_dir:
         rd = pathlib.Path(results_dir)
         bundle = io.BytesIO()
@@ -651,6 +662,15 @@ If scrapers fail, check stderr output after collection.
             file_name="qatis_outputs.zip",
             mime="application/zip",
         )
+    else:
+        st.download_button(
+            "Download bundle (zip)",
+            data=b"",
+            file_name="qatis_outputs.zip",
+            mime="application/zip",
+            disabled=True,
+        )
+        st.info("Download will be enabled after Steps 2–3 generate outputs in the results directory.")
 
 
 if __name__ == "__main__":

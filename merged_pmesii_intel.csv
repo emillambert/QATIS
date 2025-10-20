@@ -1,0 +1,82 @@
+category,query,language,engine,title,link,source,publication_info,pdf_link,date,snippet,full_content,position,year_min,year_max,occurrences,label,confidence,pmesii,source_type,admiralty_source_reliability,admiralty_distance_to_origin,admiralty_info_credibility,rationale
+political; social,Gagauzia statute OR autonomy Moldova 2024..2025; education workforce Moldova technical universities 2024..2025,en,scholar,Moldova’s transition to a productive market economy with the help of IT sector and the road to EU accession,https://openalex.org/W4406262229,Journal of Infrastructure Policy and Development (2025),,,,,,,,,,intel,0.62,'Organisations'; 'Organisations']; 'Structures']; ['Capabilities',journal,A,b,3,"Covers Moldova’s IT sector and EU accession; likely provides concrete policy, institutional and capability details on digital infrastructure relevant to vulnerabilities."
+economic,EU macro-financial assistance Moldova site:europa.eu 2024..2025,en,web,Moldova: Council and European Parliament agree to support reforms and ...,https://www.consilium.europa.eu/en/press/press-releases/2025/02/19/moldova-council-and-european-parliament-agree-to-support-reforms-and-economic-growth-with-almost-2-bn/pdf/,,,,,"Background On 10 October 2024, the European Commission presented aMoldovaGrowth Plan, which is based on three pillars: supportingMoldova'ssocio-economic and fundamental reforms, enhancingMoldova'saccess to theEU'ssingle market, and increasingfinancialsupport 2025-2027 through a dedicated Reform and Growth Facility forMoldova.",,,,,,intel,0.86,"['Organisations', 'Events', 'Structures']",gov,A,b,2,EU Council/EP agreement on Moldova Growth Plan with pillars incl. single-market access and 2025–27 financial support; signals institutional setup and funding affecting infrastructure reforms.
+economic,EU macro-financial assistance Moldova site:europa.eu 2024..2025,en,web,Moldova: Council gives final green light to support reforms and ...,https://www.consilium.europa.eu/en/press/press-releases/2025/03/18/moldova-council-gives-final-green-light-to-support-reforms-and-economic-growth-with-almost-2-billion/,,,,,"The Council today gave its final green light to setting up the Reform and Growth Facility for the Republic ofMoldova, a new instrument to supportEU-related reforms and economic growth in the country. The envelope of €1.9 billion provided by the Facility is the largestEUfinancialsupport package sinceMoldova'sindependence and comes on top of theEU'sother substantial support to the ...",,,,,,intel,0.89,"['Organisations', 'Events', 'Structures']",gov,A,b,1,Council’s final approval of €1.9bn Reform and Growth Facility for Moldova (2025–27) directly shapes reform financing and institutional structures impacting infrastructure.
+economic,EU macro-financial assistance Moldova site:europa.eu 2024..2025,en,web,PDFCommission welcomes political agreement on the €1.9 billion Reform and ...,https://ec.europa.eu/commission/presscorner/api/files/document/print/en/ip_25_568/IP_25_568_EN.pdf,,,,,"The Reform and Growth Facility forMoldovawill provide €1.9 billion infinancialsupport based on a Reform Agenda fromMoldovawhich outlines key socio-economic and fundamental reforms it intends to undertake to accelerate growth and convergence with theEU, as well as priority investment needs.",,,,,,intel,0.84,"['Organisations', 'Events', 'Capabilities']",gov,A,b,2,Commission note on €1.9bn Facility tied to Moldova’s Reform Agenda and priority investment needs; informs capacity-building and financing mechanisms relevant to infrastructure.
+economic,Moldova economy 2024 analysis,en,youtube,"Webinar: Economic Resilience in Armenia, Georgia, and Moldova",https://www.youtube.com/watch?v=TCTJBHp3IDk,CASE,,,20250326,"This webinar examined three in-depth country reports on Armenia, Georgia, and Moldova, analysing their economic resilience, key vulnerabilities, and policy challenges. These reports provide a comprehensive assessment of macroeconomic stability, financial sector developments, external trade relations, and energy security, while also examining the impact of recent geopolitical shifts, including Russia's invasion of Ukraine and regional conflicts.
+
+The webinar was moderated by Marek Dąbrowski (CASE",,,,,,intel,0.64,"['Capabilities', 'Organisations', 'Events']",think_tank,B,b,3,"Webinar promises detailed assessment of Moldova’s energy security, vulnerabilities, and policy challenges in 2025."
+economic; infrastructure,Moldova energy dependence 2024; Moldova energy outage 2024,en,youtube,Moldova braces for energy crisis as Russia halts gas supplies,https://www.youtube.com/watch?v=Uxi9ELVdAIY,euronews,,,20241231,"Moldovan leaders have implemented energy-saving measures and assured residents of temporary gas reserves, but fears of a humanitarian crisis in Transnistria remain.
+
+READ MORE : https://www.euronews.com/2024/12/31/moldova-braces-for-energy-crisis-as-russia-halts-gas-supplies
+
+Subscribe to our channel: https://www.youtube.com/c/euronews?sub_confirmation=1
+Watch our LIVE here: https://www.youtube.com/c/euronews/live
+
+Subscribe to our thematic channels:
+NoComment: https://www.youtube.com/c/nocommen",,,,,,intel,0.8,'Areas']; 'Capabilities'; ['Events',news,B,c,3,Details Moldova bracing for crisis as Russia halts gas; mentions energy-saving measures and humanitarian risks in Transnistria (Dec 2024).
+economic; infrastructure,Moldova energy dependence 2024; Moldova energy outage 2024,en,youtube,What happened when Moldova’s main power plant went dark,https://www.youtube.com/watch?v=D2VoJMLVlUw,International Energy Agency,,,20250701,"What do you do if 70% of your country's electricity comes from a power plant which no longer has a fuel supply? 
+
+Our latest video features exclusive footage from inside Moldova, where massive energy infrastructure projects are underway to bolster the country's energy independence and build new connections to Europe's grid. 
+
+Subtitrări în limba română disponibile. Subtitles available by clicking above. 
+
+Interested in Moldova's energy system? You can learn more on our website: https://www.iea.o",,,,,,intel,0.89,'Events']; 'Structures'; ['Capabilities',NGO,B,b,2,"IEA video shows Moldova’s main plant outage and ongoing projects linking to Europe’s grid, indicating energy dependence and upgrades (2024–2025)."
+economic; infrastructure,Moldova energy dependence 2024; Moldova energy outage 2024,en,youtube,What happened when Moldova’s main power plant went dark,https://www.youtube.com/watch?v=Ti1wcvF9vDw,International Energy Agency,,,20250630,"What do you do if 70% of your country's electricity comes from a power plant which no longer has a fuel supply? Full video available now! 
+
+Our latest video features exclusive footage from inside Moldova, where massive energy infrastructure projects are underway to bolster the country's energy independence and build new connections to Europe's grid. 
+
+Subtitrări în limba română disponibile. Subtitles available in Romanian on the main video. 
+
+Interested in Moldova's energy system? You can learn ",,,,,,intel,0.76,'Events']; 'Structures'; ['Capabilities',NGO,B,b,3,IEA teaser referencing Moldova’s main plant losing fuel and new connections to Europe’s grid; indicates infrastructure upgrades and vulnerabilities.
+economic,Moldova energy dependence 2024,en,youtube,Moldova Emerges as Europe’s New Energy Investment Hotspot,https://www.youtube.com/watch?v=NO-0WBypriI,Environment+Energy Leader,,,20250908,"Moldova's shift from Russian gas to renewables is gaining pace. With new tenders, storage demand, and EU ties, investors are eyeing its fast-moving market.
+
+
+https://www.environmentenergyleader.com/stories/moldova-emerges-as-europes-new-energy-investment-hotspot,90809
+
+
+Support the show (https://www.buzzsprout.com/2441376/support) 
+
+
+Share on your social channels, and don't forget to tag E+E Leader! 
+
+Thanks for listening!
+
+For access to all of E+E Leader's news and programs, visit our website a",,,,,,intel,0.55,"['Capabilities', 'Events', 'Organisations']",news,C,c,3,"Trade media piece on shift from Russian gas to renewables, tenders and storage demand; relevant to market/infrastructure capabilities."
+economic,Moldova energy dependence 2024,en,youtube,Moldova risking electricity shortages,https://www.youtube.com/watch?v=19ln0NHjTEY,Al Arabiya English,,,20250102,"While some European recipients of Russian gas like Austria and Slovakia have means to replace it, Moldova is dependent on Russian gas and could suffer drastic energy shortages, expert in Russian energy and gas policy Professor Arild Moe says.
+
+#Russia #Ukraine",,,,,,intel,0.58,"['Capabilities', 'Events']",news,C,c,3,Explains Moldova’s reliance on Russian gas and risk of electricity shortages—directly related to energy vulnerability.
+economic,Moldova energy dependence 2024,en,youtube,Moldova's energy crisis continues as conflict rages next door,https://www.youtube.com/watch?v=I-uBh5h5q7M,Al Jazeera English,,,20221203,"Former Soviet republic Moldova has been hit the hardest by the Russian invasion of Ukraine.
+It relies on gas and electricity from Russia. Now, the Moscow-backed breakaway region of Transnistria has stopped supplying energy.
+Talks to resolve the crisis failed on Friday.
+Al Jazeera's Andrew Simmons reports from Chisinau, Moldova.
+
+Subscribe to our channel  http://bit.ly/AJSubscribe
+Follow us on Twitter https://twitter.com/AJEnglish
+Find us on Facebook https://www.facebook.com/aljazeera
+Che",,,,,,intel,0.49,"['Capabilities', 'Events']",news,B,c,2,Details Moldova’s dependence on Russian gas/electricity and Transnistria halting supply; older (2022) but relevant to dependency context.
+infrastructure,Moldova energy outage 2024,en,youtube,Moldova energy crisis: Thousands without heating as Russia cuts gas supplies,https://www.youtube.com/watch?v=9jiVrAVRKVc,Al Jazeera English,,,20250110,"Moldova is facing a dire energy crisis as Russia's gas supply cuts leave tens of thousands without heating and hot water in the harsh winter months. The government has declared a state of emergency to manage the crisis, which has disrupted daily life and increased hardships for many. Power outages have compounded the challenges, leaving residents to rely on scarce resources to stay warm. The country is seeking alternative energy solutions, but progress is slow. 
+
+Al Jazeera’s Um-e-Kulsoom Sharif",,,,,,intel,0.78,"['Events', 'Capabilities', 'Organisations']",news,B,c,3,"Reports Russia’s gas cuts causing heating/power disruptions and a state of emergency in Moldova (Jan 2025), highlighting dependency and affected population."
+infrastructure,Moldova energy outage 2024,en,youtube,Kyiv’s halt of Russian gas throws Moldova into energy crisis,https://www.youtube.com/watch?v=UoOxNc1fCx8,DD India,,,20250105,"#ukrainewar #moldova #russiaukrainewar #ukrainerussiawar #moldovanews 
+
+DD India is India’s 24x7 international news channel from the stable of the country’s Public Service Broadcaster, Prasar Bharati.  Launched in 2021, DD India has made a name for itself to deliver balanced, fair and accurate news from India and around the world. Apart from daily news bulletins tracking the developments around the world, DD India airs major events of national importance, analysis of current events and informati",,,,,,intel,0.72,"['Events', 'Capabilities', 'Organisations']",news,C,c,3,"Links Ukraine’s halt of Russian gas transit to Moldova’s energy crisis (Jan 2025), indicating supply route dependency and organisational actors."
+infrastructure,Moldova energy outage 2024,en,youtube,Moldova Declares State of Emergency Amid Energy Supply Fears,https://www.youtube.com/watch?v=3Xy0JYLBtSQ,NewsBOT Politics,,,20241213,"In a decisive move reflecting the escalating energy crisis, Moldova's parliament has voted to impose a state of emergency in the energy sector, driven by concerns that Russia may cut off natural gas supplies this winter. The vote, which took plac ...
+
+Sources:
+https://www.ctvnews.ca/world/moldova-declares-a-state-of-emergency-over-energy-as-fears-of-russian-gas-shortage-loom-1.7144407
+https://www.independent.co.uk/news/world/europe/ap-transnistria-ukraine-moldova-european-union-b2663921.html
+htt",,,,,,intel,0.67,"['Events', 'Organisations']",other,D,d,3,Aggregates reports that Moldova’s parliament imposed an energy state of emergency over feared Russian gas cutoff (Dec 2024).
+infrastructure,Moldova energy outage 2024,en,youtube,Gazprom Blackmails Moldova: Gas Storages Are 80% Empty,https://www.youtube.com/watch?v=JgRDbQ14hGY,UATV English,,,20241211,"The artificial energy crisis in Moldova was provoked by gazprom. Who is responsible for 80% of empty gas storage in Moldova? The country can even face power outages as there's simply no fuel for power plants to operate. Ukraine could help Moldova in this situation if a gas supply treaty with Ukraine is signed.
+
+_____________________________________
+🔴 Be sure to subscribe to UATV English!
+🔵 Twitter: https://twitter.com/UATV_en
+🔵 WhatsApp: https://whatsapp.com/channel/0029Vau7DqJ2ZjCqG62sek1B
+🔵 We",,,,,,intel,0.65,"['Organisations', 'Capabilities', 'Events']",news,C,c,4,Claims Gazprom-triggered crisis and low gas storage risking power generation; relevant but single-source and potentially biased (Dec 2024).
+infrastructure,Moldova energy outage 2024,en,youtube,State of emergency in Moldova. What does it mean? | The Bottom Line,https://www.youtube.com/watch?v=wRgzcs3dYIE,TVP WORLD,,,20241216,"On Monday, December 16, a state of energy emergency was declared in Moldova. This is due to a looming halt of natural gas supplies via Ukraine, which is a problem because most of Moldovan electricity comes from burning this very fuel (to make matters more complicated – in a power plant located in Transnistria, a breakaway region). Martin Vladimirov, Director for Energy and Climate at the Center for the Study of Democracy, explains how difficult the situation in the country may become, what the p",,,,,,intel,0.74,"['Events', 'Structures', 'Capabilities']",news,C,c,3,"Explains Moldova’s energy emergency, dependence on gas-fired plant in Transnistria, and risks from halted transit (Dec 2024)."
+infrastructure,TEN-T Moldova 2024,en,youtube,"EU, Ukraine and Moldova sign high level understandings to improve transport connectivity",https://www.youtube.com/watch?v=sTcMcNEzkWA,EU Debates | eudebates.tv,,,20240215,"Subscribe here: https://bit.ly/eudebates On 22 December, the European Commission signed high-level Memoranda of Understanding (MOU) with Ukraine and Moldova to revise the trans-European transport (TEN-T) network in their territories and improve connections with the EU.
+
+The modified TEN-T maps for both countries also reflect new transport priorities in the wake of Russia’s war of aggression against Ukraine. 
+
+The changes will be reflected in the new TEN-T Regulation when it enters into force in ",,,,,,intel,0.78,"['Areas', 'Structures', 'Capabilities', 'Organisations', 'Events']",news,C,c,2,Reports EC signing MoUs with Moldova/Ukraine revising TEN-T maps to improve EU connections post-war—concrete policy/event shaping transport integration.

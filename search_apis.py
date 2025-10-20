@@ -52,31 +52,63 @@ def duckduckgo_search(
         has_range = bool(re.search(r"\b20\d{2}\.\.20\d{2}\b", query))
         search_query = query if has_range else f"{query} {year_min}..{year_max}"
 
-        # Construct DuckDuckGo search URL
-        params = {
-            "q": search_query,
-            "kl": kl,
-        }
-        ddg_url = f"https://html.duckduckgo.com/html/?{urllib.parse.urlencode(params)}"
-
-        # Make request with headers
+        # Rotate user agents to avoid detection
+        user_agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0",
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0",
+        ]
+        
+        # Make request with enhanced headers to look more like a real browser
         headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-            ),
-            # Not strictly required, but can help DDG locale routing
+            "User-Agent": random.choice(user_agents),
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.9" if kl == "us-en" else ("ru-RU,ru;q=0.9" if kl == "ru-ru" else "ro-RO,ro;q=0.9"),
+            "Accept-Encoding": "gzip, deflate, br",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            "Cache-Control": "max-age=0",
+            "Referer": "https://duckduckgo.com/",
         }
 
-        # Baseline throttle to ~0.2–0.3 QPS
-        time.sleep(3.5 + random.uniform(0.5, 1.5))
+        # Aggressive throttle with more randomness to appear human
+        time.sleep(random.uniform(6.0, 10.0))
 
         # Retry with exponential backoff + jitter for 403/429/network errors
         last_exc = None
         for attempt in range(5):
             try:
-                response = requests.get(ddg_url, headers=headers, timeout=15)
+                # Use session with persistent cookies
+                session = requests.Session()
+                
+                # STEP 1: First visit DDG homepage to get cookies
+                session.get("https://duckduckgo.com/", headers=headers, timeout=10)
+                time.sleep(random.uniform(1.0, 2.0))
+                
+                # STEP 2: Now do the search via POST (more like real browser)
+                ddg_url = "https://html.duckduckgo.com/html/"
+                form_data = {
+                    "q": search_query,
+                    "kl": kl,
+                    "df": "",  # date filter empty
+                }
+                
+                # Update headers for POST
+                post_headers = dict(headers)
+                post_headers.update({
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Origin": "https://duckduckgo.com",
+                })
+                
+                response = session.post(ddg_url, data=form_data, headers=post_headers, timeout=15, allow_redirects=True)
                 if response.status_code in (403, 429):
                     raise RuntimeError(f"DDG blocked: {response.status_code}")
                 response.raise_for_status()

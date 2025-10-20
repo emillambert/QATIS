@@ -2,6 +2,39 @@
 
 Turnkey CLI and web UI for OSINT collection (web, academic, social) with AI-powered relevance evaluation and structured outputs.
 
+## GUI at a Glance
+
+![QATIS Web UI Overview](assets/gui_overview.png)
+
+- Launch the GUI: `qatis ui` or `./start_ui.sh`
+- Opens in your browser at `http://localhost:8501`
+
+Tip (macOS): If the image above doesn’t render yet, capture a screenshot after launching the UI and save to `assets/gui_overview.png`:
+
+```bash
+./start_ui.sh
+# In another terminal:
+screencapture -i assets/gui_overview.png
+```
+
+## For Instructors and Reviewers (University-Friendly Overview)
+
+- **Purpose**: One-stop workflow to collect open-source intelligence (web, academic, social), then use an LLM to score relevance, assign PMESII tags, and apply Admiralty codes.
+- **Methods**:
+  - Multi-source search: Google (via ScraperAPI), OpenAlex (academic), optional social (X, YouTube, Reddit, VK)
+  - LLM-based evaluation (OpenAI) with confidence scores, rationale, PMESII, and Admiralty codes
+  - Deterministic inputs (YAML queries) and cached analysis for reproducibility on re-runs
+- **Reproducibility**:
+  - Inputs are YAML (`queries.yaml`); outputs are timestamped in `search_results/<timestamp>/`
+  - Key artifacts: `results_scored.csv`, `results_scored_intel.csv`, `pmesii_infrastructure.md`, `intel_sources.bib`
+  - UI “Download bundle” provides a zip with all artifacts
+- **Ethics & Compliance**:
+  - Public sources only; no login-required scraping
+  - Honors platform terms via ScraperAPI/OpenAlex; social scrapers are optional and best-effort
+- **How to Cite**:
+  - Use `intel_sources.bib` for academic citations of collected sources
+  - When citing this tool in reports, include the repository URL and run date/time
+
 ## Features
 
 - 🔍 **Multi-source collection**: Google (ScraperAPI), Academic papers (OpenAlex), Twitter/X, YouTube

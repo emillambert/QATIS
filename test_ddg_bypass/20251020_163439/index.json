@@ -1,0 +1,102 @@
+{
+  "entries": [
+    {
+      "category": "economic",
+      "query": "energy dependence Moldova Gazprom Moldovagaz 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__energy_dependence_Moldova_Gazprom_Moldovagaz_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "electricity imports Moldova Romania Ukraine 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__electricity_imports_Moldova_Romania_Ukraine_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "EIB Moldova project site:eib.org 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__EIB_Moldova_project_site_eib.org_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "World Bank Moldova infrastructure loan site:worldbank.org 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__World_Bank_Moldova_infrastructure_loan_site_worldbank.org_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "EU macro-financial assistance Moldova site:europa.eu 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__EU_macro-financial_assistance_Moldova_site_europa.eu_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "trade structure Moldova exports EU share 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__trade_structure_Moldova_exports_EU_share_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "Chișinău GDP concentration 60% 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__Chi_in_u_GDP_concentration_60_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "sanctions Moldova economy 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__sanctions_Moldova_economy_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "PPP Moldova OR SOE reform 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__PPP_Moldova_OR_SOE_reform_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "inflation Moldova 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__inflation_Moldova_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "FDI Moldova 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__FDI_Moldova_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "remittances Moldova 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__remittances_Moldova_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "transport logistics Moldova bottlenecks 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__transport_logistics_Moldova_bottlenecks_2024..2025__en.json"
+    },
+    {
+      "category": "economic",
+      "query": "Romania cross-border projects Moldova energy transport 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass/20251020_163439/economic__Romania_cross-border_projects_Moldova_energy_transport_2024..2025__en.json"
+    }
+  ]
+}

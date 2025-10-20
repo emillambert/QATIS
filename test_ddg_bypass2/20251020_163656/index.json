@@ -1,0 +1,116 @@
+{
+  "entries": [
+    {
+      "category": "infrastructure",
+      "query": "Moldova energy grid Moldelectrica 2024..2025 site:moldelectrica.md",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__Moldova_energy_grid_Moldelectrica_2024..2025_site_moldelectrica.md__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "MGRES Cuciurgan power plant Inter RAO 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__MGRES_Cuciurgan_power_plant_Inter_RAO_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "ENTSO-E interconnector Moldova Vulcănești–Chișinău 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__ENTSO-E_interconnector_Moldova_Vulc_ne_ti_Chi_in_u_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "Iași–Ungheni–Chișinău gas pipeline capacity 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__Ia_i_Ungheni_Chi_in_u_gas_pipeline_capacity_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "TEN-T Moldova rail road projects 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__TEN-T_Moldova_rail_road_projects_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "bridge repair Moldova Dniester 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__bridge_repair_Moldova_Dniester_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "border crossing Moldova Ukraine modernization 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__border_crossing_Moldova_Ukraine_modernization_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "Giurgiulești port capacity 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__Giurgiule_ti_port_capacity_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "telecom backbone Moldova IXP internet exchange 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__telecom_backbone_Moldova_IXP_internet_exchange_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "Moldtelecom Orange Starnet fiber 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__Moldtelecom_Orange_Starnet_fiber_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "water utilities Moldova Apa-Canal 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__water_utilities_Moldova_Apa-Canal_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "hospital infrastructure Moldova 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__hospital_infrastructure_Moldova_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "data center Moldova cybersecurity 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__data_center_Moldova_cybersecurity_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "grid outage Moldova blackout risk 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__grid_outage_Moldova_blackout_risk_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "sabotage critical infrastructure Moldova 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__sabotage_critical_infrastructure_Moldova_2024..2025__en.json"
+    },
+    {
+      "category": "infrastructure",
+      "query": "Energy Community Moldova report site:energy-community.org filetype:pdf 2024..2025",
+      "language": "en",
+      "markdown": "",
+      "json": "test_ddg_bypass2/20251020_163656/infrastructure__Energy_Community_Moldova_report_site_energy-community.org_filetype_pdf_2024..2025__en.json"
+    }
+  ]
+}
