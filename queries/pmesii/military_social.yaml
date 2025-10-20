@@ -1,0 +1,42 @@
+x:
+  broad:
+    - 'Moldova army since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Transnistria militia since:2024-01-01 until:2025-12-31 lang:ru'
+  specific:
+    - 'OGRV Moldova since:2024-01-01 until:2025-12-31'
+    - 'military exercise Moldova since:2024-01-01 until:2025-12-31'
+
+youtube:
+  broad:
+    - 'Moldova military 2024 analysis'
+    - 'Transnistria troops 2024'
+  specific:
+    - 'OGRV Moldova 2024'
+  queries:
+    - 'Moldova military 2024 analysis'
+    - 'Transnistria troops 2024'
+    - 'OGRV Moldova 2024'
+
+reddit:
+  queries:
+    - 'Moldova military'
+    - 'Transnistria troops'
+  subreddits:
+    - 'geopolitics'
+    - 'europe'
+
+vk:
+  queries:
+    - 'Молдова армия 2024'
+    - 'Приднестровье миротворцы'
+
+telegram:
+  channels:
+    - 't.me/sis_moldova'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'учения'
+    - 'граница'
+  keywords_specific:
+    - 'ОГРВ'
+    - 'мобилизация'

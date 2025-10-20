@@ -1,0 +1,39 @@
+x:
+  broad:
+    - 'Moldova energy prices since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Gazprom Moldova debt since:2024-01-01 until:2025-12-31 lang:ru'
+  specific:
+    - 'macro-financial assistance Moldova since:2024-01-01 until:2025-12-31'
+    - 'Romania Moldova interconnector since:2024-01-01 until:2025-12-31'
+
+youtube:
+  broad:
+    - 'Moldova economy 2024 analysis'
+    - 'Moldova energy dependence 2024'
+  queries:
+    - 'Moldova economy 2024 analysis'
+    - 'Moldova energy dependence 2024'
+
+reddit:
+  queries:
+    - 'Moldova economy'
+    - 'Moldova energy prices'
+  subreddits:
+    - 'europe'
+    - 'economics'
+
+vk:
+  queries:
+    - 'Молдова экономика 2024'
+    - 'Газпром Молдавия долг'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'инвестиции'
+    - 'энергия'
+  keywords_specific:
+    - 'макрофинансовая помощь'
+    - 'межсоединитель'

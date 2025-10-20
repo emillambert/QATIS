@@ -1,0 +1,47 @@
+x:
+  broad:
+    - 'disinformation Moldova since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Sputnik Moldova since:2024-01-01 until:2025-12-31 lang:ro'
+    - 'Telegram network Moldova since:2024-01-01 until:2025-12-31 lang:ru'
+  specific:
+    - 'fact-check Moldova since:2024-01-01 until:2025-12-31'
+    - 'media ban Moldova since:2024-01-01 until:2025-12-31'
+  users:
+    - 'MoldovaGov'
+    - 'newsmakermd'
+    - 'stopfalsmd'
+
+youtube:
+  broad:
+    - 'Moldova disinformation 2024'
+    - 'Moldova media regulation 2024'
+  specific:
+    - 'Sputnik Moldova 2024'
+  queries:
+    - 'Moldova disinformation 2024'
+    - 'Moldova media regulation 2024'
+    - 'Sputnik Moldova 2024'
+
+reddit:
+  queries:
+    - 'Moldova disinformation'
+    - 'Moldova media'
+  subreddits:
+    - 'europe'
+    - 'geopolitics'
+
+vk:
+  queries:
+    - 'Молдова дезинформация 2024'
+    - 'Спутник Молдова 2024'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'дезинформация'
+    - 'пропаганда'
+  keywords_specific:
+    - 'санкции СМИ'
+    - 'фейк'

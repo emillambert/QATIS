@@ -1,0 +1,50 @@
+x:
+  broad:
+    - 'Moldova protests since:2024-01-01 until:2025-12-31 lang:en'
+    - 'Gagauzia sentiment Russia since:2024-01-01 until:2025-12-31 lang:ro'
+    - 'Transnistria social tensions since:2024-01-01 until:2025-12-31 lang:ru'
+  specific:
+    - 'public services Chișinău strain since:2024-01-01 until:2025-12-31'
+    - 'refugees Moldova services since:2024-01-01 until:2025-12-31'
+  users:
+    - 'MoldovaGov'
+    - 'newsmakermd'
+    - 'primaria_chisinau'
+
+youtube:
+  broad:
+    - 'Moldova protests 2024 analysis'
+    - 'Gagauzia identity Russian world 2024'
+  specific:
+    - 'Transnistria social tensions 2024'
+  queries:
+    - 'Moldova protests 2024 analysis'
+    - 'Gagauzia identity Russian world 2024'
+    - 'Transnistria social tensions 2024'
+
+reddit:
+  queries:
+    - 'Moldova protests'
+    - 'Gagauzia'
+    - 'Transnistria tensions'
+  subreddits:
+    - 'europe'
+    - 'geopolitics'
+    - 'moldova'
+
+vk:
+  queries:
+    - 'Приднестровье протесты 2024'
+    - 'Гагаузия идентичность 2024'
+
+telegram:
+  channels:
+    - 't.me/moldovagov'
+    - 't.me/newsmaker'
+  keywords_broad:
+    - 'протест'
+    - 'миграция'
+    - 'соцуслуги'
+  keywords_specific:
+    - 'Гагаузия'
+    - 'Приднестровье'
