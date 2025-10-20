@@ -180,8 +180,6 @@ def main() -> int:
     out_dir = output_root / timestamp
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    index_entries: List[Dict[str, Any]] = []
-
     lang_variants: List[Tuple[str, Optional[str]]] = [("en", None)]
     if args.include_ru:
         lang_variants.append(("ru", "lang_ru"))
@@ -196,19 +194,19 @@ def main() -> int:
                 tasks.append((category, query, (lang_label, lang_region)))
 
     total_tasks = len(tasks)
-    completed = 0
-    completed_lock = threading.Lock()
-
-    def process_task(task: Tuple[str, str, Tuple[str, Optional[str]]]) -> Dict[str, Any]:
-        category, query, (lang_label, lang_region) = task
-        results_by_engine: Dict[str, List[Dict[str, Any]]] = {}
-
-        # Run engines concurrently per task for speed
-        engine_results: Dict[str, List[Dict[str, Any]]] = {}
-
-        def run_engine(name: str):
-            if name == "web":
-                return run_google_search(
+    
+    # STEP 1: Run all DDG searches sequentially with delays to avoid rate limiting
+    print(f"Step 1/2: Running {total_tasks} DDG searches sequentially with delays...")
+    sys.stdout.flush()
+    
+    ddg_results_cache: Dict[Tuple[str, str, str], List[Dict[str, Any]]] = {}
+    
+    for idx, (category, query, (lang_label, lang_region)) in enumerate(tasks, 1):
+        # Only run web search for English (lang_region None)
+        if "web" in args.engines and lang_region is None:
+            cache_key = (category, query, lang_label)
+            try:
+                results = run_google_search(
                     api_key=api_key,
                     query=query,
                     year_min=args.year_min,
@@ -216,8 +214,35 @@ def main() -> int:
                     top_k=args.top_k,
                     lang_region=None,
                 )
-            elif name == "scholar":
-                return run_scholar_search(
+                ddg_results_cache[cache_key] = results
+                pct = int(100 * idx / total_tasks)
+                print(f"DDG Progress: {idx}/{total_tasks} ({pct}%) - {category}/{query[:50]}")
+                sys.stdout.flush()
+            except Exception as e:
+                print(f"Error with DDG for {query}: {e}")
+                ddg_results_cache[cache_key] = []
+    
+    # STEP 2: Run Scholar searches in parallel (they're unlimited) and merge with DDG results
+    print(f"\nStep 2/2: Running Scholar searches and merging results...")
+    sys.stdout.flush()
+    
+    index_entries: List[Dict[str, Any]] = []
+    completed = 0
+    completed_lock = threading.Lock()
+
+    def process_task(task: Tuple[str, str, Tuple[str, Optional[str]]]) -> Dict[str, Any]:
+        category, query, (lang_label, lang_region) = task
+        results_by_engine: Dict[str, List[Dict[str, Any]]] = {}
+
+        # Get cached DDG results
+        cache_key = (category, query, lang_label)
+        if cache_key in ddg_results_cache:
+            results_by_engine["web"] = ddg_results_cache[cache_key]
+
+        # Run scholar search
+        if "scholar" in args.engines:
+            try:
+                scholar_results = run_scholar_search(
                     api_key=api_key,
                     query=query,
                     year_min=args.year_min,
@@ -225,26 +250,9 @@ def main() -> int:
                     top_k=args.top_k,
                     lang_region=lang_region,
                 )
-            return []
-
-        inner_engines: List[str] = []
-        # Only run web once for English (lang_region None)
-        if "web" in args.engines and lang_region is None:
-            inner_engines.append("web")
-        if "scholar" in args.engines:
-            inner_engines.append("scholar")
-
-        if inner_engines:
-            with futures.ThreadPoolExecutor(max_workers=len(inner_engines)) as inner_pool:
-                futs = {inner_pool.submit(run_engine, en): en for en in inner_engines}
-                for fut in futures.as_completed(futs):
-                    en = futs[fut]
-                    try:
-                        engine_results[en] = fut.result() or []
-                    except Exception:
-                        engine_results[en] = []
-
-        results_by_engine.update(engine_results)
+                results_by_engine["scholar"] = scholar_results
+            except Exception:
+                results_by_engine["scholar"] = []
 
         md_path = None
         if not args.no_markdown:
@@ -274,10 +282,7 @@ def main() -> int:
             "json": str(json_path),
         }
 
-    if total_tasks:
-        print(f"Progress: 0/{total_tasks} (0%) - Starting collection...")
-        sys.stdout.flush()
-
+    # Process all tasks in parallel for Scholar + merging
     with futures.ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
         future_map = {pool.submit(process_task, t): t for t in tasks}
         for fut in futures.as_completed(future_map):
@@ -290,14 +295,14 @@ def main() -> int:
             with completed_lock:
                 completed += 1
                 pct = int(100 * completed / total_tasks) if total_tasks else 100
-                print(f"Progress: {completed}/{total_tasks} ({pct}%) - Collected")
+                print(f"Merge Progress: {completed}/{total_tasks} ({pct}%)")
                 sys.stdout.flush()
 
     index_path = out_dir / "index.json"
     with open(index_path, "w", encoding="utf-8") as f:
         json.dump({"entries": index_entries}, f, ensure_ascii=False, indent=2)
 
-    print(f"Wrote {len(index_entries)} query files under {out_dir}")
+    print(f"\n✓ Wrote {len(index_entries)} query files under {out_dir}")
     return 0
 
 
