@@ -28,6 +28,7 @@ env/
 .env/
 ENV/
 .ENV/
+.qatis-ui/
 
 # IDE and editors
 .vscode/
