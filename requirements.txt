@@ -1,4 +1,4 @@
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 google-search-results==2.4.2
 PyYAML==6.0.2
 openai==1.30.1
@@ -7,12 +7,12 @@ tqdm==4.66.4
 tenacity==8.4.1
 python-slugify==8.0.4
 httpx==0.27.2
-requests==2.32.5
+requests==2.33.0
 beautifulsoup4==4.12.3
 
 # Enhanced social scrapers
 snscrape==0.7.0.20230622
-yt-dlp==2024.10.7
+yt-dlp==2026.6.9
 youtube-transcript-api==0.6.2
 praw==7.7.1
 vk-api==11.9.9
